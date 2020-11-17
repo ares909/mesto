@@ -1,0 +1,11 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+* {
+  border: 1px solid red
+}

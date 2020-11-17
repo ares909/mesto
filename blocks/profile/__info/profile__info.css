@@ -1,0 +1,7 @@
+.profile__info {
+  margin: 10px 0 12px;
+  max-width: 336px;
+  display: grid;
+  grid-gap: 16px 18px;
+  grid-template-areas: "name editbutton" "profession profession";
+}

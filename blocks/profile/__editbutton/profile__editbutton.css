@@ -1,0 +1,11 @@
+.profile__editbutton {
+  background-image: url(./images/editbutton.svg);
+  min-width: 24px;
+  min-height: 24px;
+  margin-bottom: 10px;
+  object-fit: cover;
+  display: block;
+  box-sizing: border-box;
+  grid-area: editbutton;
+  align-self: end;
+}

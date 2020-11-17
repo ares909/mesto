@@ -1,0 +1,8 @@
+.profile {
+  max-width: 68.75%;
+  margin: 40px auto 0;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
