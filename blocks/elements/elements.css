@@ -14,3 +14,17 @@
     flex-direction: column;
   }
 }
+
+@media screen and (min-width:551px) and (max-width: 900px) {
+  .elements {
+    min-width: 95%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 5px;
+  }
+}
+
+@media screen and (min-width:901px) and (max-width: 1200px) {
+  .elements {
+    min-width: 95%;
+  }
+}

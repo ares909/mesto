@@ -16,3 +16,9 @@
     min-width: 100%;
   }
 }
+
+@media screen and (min-width:551px) and (max-width: 768px) {
+  .profile__addbutton {
+    max-width: 120px;
+  }
+}

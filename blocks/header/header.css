@@ -11,3 +11,9 @@
     padding-left: 8.5%;
   }
 }
+
+@media screen and (min-width:551px) and (max-width: 1200px) {
+  .header {
+    min-width: 95%;
+  }
+}
