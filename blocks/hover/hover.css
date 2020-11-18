@@ -1,1 +1,8 @@
-.hover {}
+.hover {
+  transition: opacity 0.1s ease 0s;
+  color: inherit;
+}
+
+.hover:hover {
+  opacity: 0.8;
+}
