@@ -1,0 +1,6 @@
+.element__like {
+  background-image: url(./images/like.png);
+  width: 21px;
+  height: 18px;
+  align-self: center;
+}
