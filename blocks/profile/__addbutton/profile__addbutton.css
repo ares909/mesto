@@ -8,8 +8,14 @@
   padding: 0;
   justify-content: center;
   cursor: pointer;
-
 }
+.profile__addbutton:focus {
+  outline:none;
+}
+.profile__addbutton:active {
+  outline:none;
+}
+
 
 @media screen and (min-width:320px) and (max-width: 550px) {
   .profile__addbutton {

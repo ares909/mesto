@@ -5,9 +5,9 @@
   position: fixed;
   justify-content: center;
   align-items: center;
-  display: flex;
   top: 0;
   left: 0;
   z-index: 1;
   font-family: 'Inter', sans-serif;
+  display: none;
 }
