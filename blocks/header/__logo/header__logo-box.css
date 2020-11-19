@@ -9,5 +9,6 @@
   .header__logo-box {
     width: 104px;
     height: 24px;
+    padding-left: 8%;
   }
 }
