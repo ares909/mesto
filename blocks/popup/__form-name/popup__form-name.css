@@ -10,10 +10,5 @@
   font-size: 14px;
   line-height: 17px;
   color: black;
-}
-.popup__form-name:focus {
-  outline:none;
-}
-.popup__form-name:active {
-  outline:none;
+  outline: none;
 }
