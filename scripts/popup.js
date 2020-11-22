@@ -5,41 +5,27 @@ let nameInput = document.querySelector('#name');
 let professionInput = document.querySelector('#profession');
 let name = document.querySelector('.profile__name');
 let profession = document.querySelector('.profile__profession');
+nameInput.value = name.textContent;
+professionInput.value = profession.textContent;
 
 function popupOpened() {
   popup.classList.add('popup_opened');
-  nameInput.value = name.textContent;
-  professionInput.value = profession.textContent;
 }
-
-editButton.addEventListener('click', popupOpened);
 
 function popupClosed() {
   popup.classList.remove('popup_opened');
 }
-closeButton.addEventListener('click', popupClosed);
-
-let submitButton = document.querySelector('.popup__form-button');
-
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  nameInput = document.querySelector('#name').value;
-  professionInput = document.querySelector('#profession').value;
-  name.textContent = nameInput;
-  profession.textContent = professionInput;
-  popup.classList.remove('popup_opened');
-
+  name.textContent = nameInput.value;
+  profession.textContent = professionInput.value;
+  popupClosed();
 }
 
-submitButton.addEventListener('click', formSubmitHandler);
-popup.addEventListener("keyup", function(evt) {
 
-  if (evt.keyCode === 13) {
+closeButton.addEventListener('click', popupClosed);
+editButton.addEventListener('click', popupOpened);
+popup.addEventListener('submit', formSubmitHandler);
 
-    evt.preventDefault();
-
-    document.querySelector('.popup__form-button').click();
-  }
-});
 

@@ -11,20 +11,20 @@
 
 <body class="page">
   <header class="header">
-    <a href="#" class="header__logo-box hover" target="_blank"><img class="header__logo" src="./blocks/header/images/header__logo.png"
+    <a href="#" class="header__logo-box hover" target="_blank"><img class="header__logo" src="./blocks/header/images/logo.svg"
         alt="лого"></a>
   </header>
   <section class="popup">
     <div class="popup__container">
-      <div class="popup__form">
+      <form class="popup__form">
         <fieldset class="popup__form-container">
-          <h1 class="popup__form-heading">Редактировать профиль</h1>
-          <input name="name" id="name" type="text" class="popup__form-name">
-          <input name="profession" id="profession" type="text" class="popup__form-profession">
-          <button class="popup__form-button hover">Сохранить</button>
+          <h2 class="popup__form-heading">Редактировать профиль</h2>
+          <input name="name" id="name" type="text" class="popup__form-text">
+          <input name="profession" id="profession" type="text" class="popup__form-text">
+          <button class="popup__form-button hover" type="submit">Сохранить</button>
         </fieldset>
-      </div>
-      <div class="popup__cross hover"></div>
+      </form>
+      <button class="popup__cross hover"></button>
 
     </div>
   </section>
@@ -35,60 +35,60 @@
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__profession">Исследователь океана</p>
-          <button class="profile__editbutton hover"></button>
+          <button class="profile__editbutton hover" type="button"></button>
         </div>
       </div>
-      <button class="profile__addbutton hover">
-        <img src="./blocks/profile/__addbutton/image/plus.png" class="profile__plus" alt="плюс">
+      <button class="profile__addbutton hover" type="button">
+        <img src="./blocks/profile/__addbutton/image/plus.svg" class="profile__plus" alt="плюс">
       </button>
     </section>
     <section class="elements">
-      <ul class="element">
-        <li><img src="./blocks/element/__image/images/karachaevsk.jpg" class="element__image" alt="карачаевск"></li>
-        <li class="element__place">
-          <p class="element__text">Карачаевск</p>
-          <div class="element__like"></div>
-        </li>
-      </ul>
-      <ul class="element">
-        <li><img src="./blocks/element/__image/images/elbrus.jpg" class="element__image" alt="эльбрус"></li>
-        <li class="element__place">
-          <p class="element__text">Гора Эльбрус</p>
-          <div class="element__like"></div>
-        </li>
-      </ul>
-      <ul class="element">
-        <li><img src="./blocks/element/__image/images/dombay.jpg" class="element__image" alt="домбай"></li>
-        <li class="element__place">
-          <p class="element__text">Домбай</p>
-          <div class="element__like"></div>
-        </li>
-      </ul>
-      <ul class="element">
-        <li><img src="./blocks/element/__image/images/elbrus2.jpg" class="element__image" alt="эльбрус2"></li>
-        <li class="element__place">
-          <p class="element__text">Гора Эльбрус</p>
-          <div class="element__like"></div>
-        </li>
-      </ul>
-      <ul class="element">
-        <li><img src="./blocks/element/__image/images/dombay2.jpg" class="element__image" alt="домбай2"></li>
-        <li class="element__place">
-          <p class="element__text">Домбай</p>
-          <div class="element__like"></div>
-        </li>
-      </ul>
-      <ul class="element">
-        <li><img src="./blocks/element/__image/images/karachaevo.jpg" class="element__image" alt="карачаево"></li>
-        <li class="element__place">
-          <p class="element__text">Карачаево-Черкесия</p>
-          <div class="element__like"></div>
-        </li>
-      </ul>
+      <div class="element">
+        <img src="./blocks/element/__image/images/karachaevsk.jpg" class="element__image" alt="карачаевск">
+        <div class="element__place">
+          <h1 class="element__text">Карачаевск</h1>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./blocks/element/__image/images/elbrus.jpg" class="element__image" alt="эльбрус">
+        <div class="element__place">
+          <h1 class="element__text">Гора Эльбрус</h1>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./blocks/element/__image/images/dombay.jpg" class="element__image" alt="домбай">
+        <div class="element__place">
+          <h1 class="element__text">Домбай</h1>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./blocks/element/__image/images/elbrus2.jpg" class="element__image" alt="эльбрус2">
+        <div class="element__place">
+          <h1 class="element__text">Гора Эльбрус</h1>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./blocks/element/__image/images/dombay2.jpg" class="element__image" alt="домбай2">
+        <div class="element__place">
+          <h1 class="element__text">Домбай</h1>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./blocks/element/__image/images/karachaevo.jpg" class="element__image" alt="карачаево">
+        <div class="element__place">
+          <h1 class="element__text">Карачаево-Черкесия</h1>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
 
     </section>
   </main>
-  <footer class="footer">© 2020 Mesto Russia</footer>
+  <footer class="footer"><p class="footer__text">© 2020 Mesto Russia</p></footer>
   <script src="scripts/popup.js"></script>
 </body>
 </html>
