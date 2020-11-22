@@ -23,7 +23,6 @@ function formSubmitHandler(evt) {
   popupClosed();
 }
 
-
 closeButton.addEventListener('click', popupClosed);
 editButton.addEventListener('click', popupOpened);
 popup.addEventListener('submit', formSubmitHandler);
