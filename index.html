@@ -11,20 +11,20 @@
 
 <body class="page">
   <header class="header">
-    <a href="#" class="header__logo-box hover" target="_blank"><img class="header__logo" src="./blocks/header/images/logo.svg"
-        alt="лого"></a>
+    <a href="#" class="header__logo-box hover" target="_blank"><img class="header__logo"
+        src="./blocks/header/images/logo.svg" alt="лого"></a>
   </header>
   <section class="popup">
     <div class="popup__container">
-      <form class="popup__form">
+      <form class="popup__form" name="form" id="form">
         <fieldset class="popup__form-container">
           <h2 class="popup__form-heading">Редактировать профиль</h2>
           <input name="name" id="name" type="text" class="popup__form-text">
           <input name="profession" id="profession" type="text" class="popup__form-text">
-          <button class="popup__form-button hover" type="submit">Сохранить</button>
+          <button class="popup__form-button hover_form" type="submit">Сохранить</button>
         </fieldset>
       </form>
-      <button class="popup__cross hover"></button>
+      <button class="popup__cross hover" type="button"></button>
 
     </div>
   </section>
@@ -46,49 +46,52 @@
       <div class="element">
         <img src="./blocks/element/__image/images/karachaevsk.jpg" class="element__image" alt="карачаевск">
         <div class="element__place">
-          <h1 class="element__text">Карачаевск</h1>
-          <button class="element__like" type="button"></button>
+          <h2 class="element__text">Карачаевск</h2>
+          <button class="element__like hover" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img src="./blocks/element/__image/images/elbrus.jpg" class="element__image" alt="эльбрус">
         <div class="element__place">
-          <h1 class="element__text">Гора Эльбрус</h1>
-          <button class="element__like" type="button"></button>
+          <h2 class="element__text">Гора Эльбрус</h2>
+          <button class="element__like hover" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img src="./blocks/element/__image/images/dombay.jpg" class="element__image" alt="домбай">
         <div class="element__place">
-          <h1 class="element__text">Домбай</h1>
-          <button class="element__like" type="button"></button>
+          <h2 class="element__text">Домбай</h2>
+          <button class="element__like hover" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img src="./blocks/element/__image/images/elbrus2.jpg" class="element__image" alt="эльбрус2">
         <div class="element__place">
-          <h1 class="element__text">Гора Эльбрус</h1>
-          <button class="element__like" type="button"></button>
+          <h2 class="element__text">Гора Эльбрус</h2>
+          <button class="element__like hover" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img src="./blocks/element/__image/images/dombay2.jpg" class="element__image" alt="домбай2">
         <div class="element__place">
-          <h1 class="element__text">Домбай</h1>
-          <button class="element__like" type="button"></button>
+          <h2 class="element__text">Домбай</h2>
+          <button class="element__like hover" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img src="./blocks/element/__image/images/karachaevo.jpg" class="element__image" alt="карачаево">
         <div class="element__place">
-          <h1 class="element__text">Карачаево-Черкесия</h1>
-          <button class="element__like" type="button"></button>
+          <h2 class="element__text">Карачаево-Черкесия</h2>
+          <button class="element__like hover" type="button"></button>
         </div>
       </div>
 
     </section>
   </main>
-  <footer class="footer"><p class="footer__text">© 2020 Mesto Russia</p></footer>
+  <footer class="footer">
+    <p class="footer__text">© 2020 Mesto Russia</p>
+  </footer>
   <script src="scripts/popup.js"></script>
 </body>
+
 </html>

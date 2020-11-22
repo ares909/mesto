@@ -1,0 +1,7 @@
+.hover_form {
+  transition: opacity 0.1s ease 0s;
+}
+
+.hover_form:hover {
+  opacity: 0.8;
+}

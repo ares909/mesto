@@ -2,7 +2,7 @@
   margin: 10px 0 12px;
   max-width: 336px;
   display: grid;
-  grid-template-columns: 87.3% calc(12.7% - 18px);
+  grid-template-columns: 87.5% calc(12.5% - 18px);
   grid-gap: 16px 18px;
   grid-template-areas: "name editbutton" "profession profession";
 }

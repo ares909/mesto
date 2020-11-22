@@ -5,10 +5,10 @@ let nameInput = document.querySelector('#name');
 let professionInput = document.querySelector('#profession');
 let name = document.querySelector('.profile__name');
 let profession = document.querySelector('.profile__profession');
-nameInput.value = name.textContent;
-professionInput.value = profession.textContent;
 
 function popupOpened() {
+  nameInput.value = name.textContent;
+  professionInput.value = profession.textContent;
   popup.classList.add('popup_opened');
 }
 

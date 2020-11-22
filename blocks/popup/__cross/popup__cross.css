@@ -1,5 +1,5 @@
 .popup__cross {
-  background-image: url(../__cross/images/cross.png);
+  background-image: url(../__cross/images/cross.svg);
   background-size: contain;
   position: absolute;
   width: 40px;
