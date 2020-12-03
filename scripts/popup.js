@@ -1,23 +1,14 @@
-let editButton = document.querySelector('.profile__editbutton');
-let closeButton = document.querySelector('.popup__cross');
-let addButton = document.querySelector('.profile__addbutton');
-let popup = document.querySelector('.popup');
-
-let name = document.querySelector('.profile__name');
-let profession = document.querySelector('.profile__profession');
-
-
-let formNameTemplate = document.querySelector('#form1');
-let formName = document.querySelector('#form1').content; //форма один убирается из template
-let nameInput = formName.querySelector('#name');
-let professionInput = formName.querySelector('#profession');
-
-
-let popupContainer = document.querySelector('#popup_container')
-let formTemplate = document.querySelector('#form2');
-let formPlace = document.querySelector('#form2').content;
-
-
+const editButton = document.querySelector('.profile__editbutton');
+const closeButton = document.querySelector('.popup__cross');
+const addButton = document.querySelector('.profile__addbutton');
+const popup = document.querySelector('.popup');
+const name = document.querySelector('.profile__name');
+const profession = document.querySelector('.profile__profession');
+const formName = document.querySelector('#form1').content; //форма один убирается из template
+const nameInput = formName.querySelector('#name');
+const professionInput = formName.querySelector('#profession');
+const popupContainer = document.querySelector('#popup_container');
+const formPlace = document.querySelector('#form2').content;
 const popupOpened = () => {
 
   nameInput.value = name.textContent;
