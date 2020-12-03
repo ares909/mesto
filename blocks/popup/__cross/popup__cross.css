@@ -10,7 +10,7 @@
   cursor: pointer;
   border: none;
   outline: none;
-  background-color: black;
+  background-color: rgba(0,0,0,0);
   padding: 0;
 }
 
