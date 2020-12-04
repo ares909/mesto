@@ -6,6 +6,7 @@ const name = document.querySelector('.profile__name');
 const profession = document.querySelector('.profile__profession');
 const popupContainer = document.querySelector('#popup_container');
 const formName = document.querySelector('#popup_name').content.cloneNode(true);
+const formPlace = document.querySelector('#popup_place').content.cloneNode(true);
 const nameInput = formName.querySelector('#name');
 const professionInput = formName.querySelector('#profession');
 
@@ -21,10 +22,15 @@ const popupOpened = () => {
 
 const popupClosed = () => {
   popup.classList.remove('popup_opened');
-  const popupName = document.querySelectorAll('#form');
-  popupName.forEach((item) => {
+  const popupForm = document.querySelectorAll('#form, #form-place');
+  popupForm.forEach((item) => {
     item.remove();
   });
+}
+
+const popupPlaceOpened = () => {
+  popup.classList.add('popup_opened');
+  popupContainer.append(formPlace);
 }
 
 const formSubmitHandler = (evt) => {
@@ -38,7 +44,7 @@ const formSubmitHandler = (evt) => {
 
 closeButton.addEventListener('click', popupClosed);
 editButton.addEventListener('click', popupOpened);
-/*addButton.addEventListener('click', popupPlaceOpened);*/
+addButton.addEventListener('click', popupPlaceOpened);
 popup.addEventListener('submit', formSubmitHandler);
 
 
