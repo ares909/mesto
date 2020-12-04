@@ -21,7 +21,10 @@ const popupOpened = () => {
 
 const popupClosed = () => {
   popup.classList.remove('popup_opened');
-  formName.remove();
+  const popupName = document.querySelectorAll('#form');
+  popupName.forEach((item) => {
+    item.remove();
+  });
 }
 
 const formSubmitHandler = (evt) => {
@@ -35,7 +38,7 @@ const formSubmitHandler = (evt) => {
 
 closeButton.addEventListener('click', popupClosed);
 editButton.addEventListener('click', popupOpened);
-addButton.addEventListener('click', popupPlaceOpened);
+/*addButton.addEventListener('click', popupPlaceOpened);*/
 popup.addEventListener('submit', formSubmitHandler);
 
 
