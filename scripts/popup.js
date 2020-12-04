@@ -5,19 +5,20 @@ const popup = document.querySelector('.popup');
 const name = document.querySelector('.profile__name');
 const profession = document.querySelector('.profile__profession');
 const popupContainer = document.querySelector('#popup_container');
-const formName = document.querySelector('#popup_name').content.cloneNode(true);
-const formPlace = document.querySelector('#popup_place').content.cloneNode(true);
-const nameInput = formName.querySelector('#name');
-const professionInput = formName.querySelector('#profession');
+const NameTemplate = document.querySelector('#popup_name').content;
+const PlaceTemplate = document.querySelector('#popup_place').content;
 
-
+/*const nameInput = NameTemplate.querySelector('#name');
+const professionInput = PlaceTemplate.querySelector('#profession');*/
 
 
 const popupOpened = () => {
   popup.classList.add('popup_opened');
+  const formName = NameTemplate.cloneNode(true);
   popupContainer.append(formName);
-  nameInput.value = name.textContent;
-  professionInput.value = profession.textContent;
+  /*nameInput.value = name.textContent;
+  professionInput.value = profession.textContent;*/
+
 }
 
 const popupClosed = () => {
@@ -30,13 +31,14 @@ const popupClosed = () => {
 
 const popupPlaceOpened = () => {
   popup.classList.add('popup_opened');
+  const formPlace = PlaceTemplate.cloneNode(true);
   popupContainer.append(formPlace);
 }
 
 const formSubmitHandler = (evt) => {
   evt.preventDefault();
-  name.textContent = nameInput.value;
-  profession.textContent = professionInput.value;
+  /*name.textContent = nameInput.value;
+  profession.textContent = professionInput.value;*/
   popupClosed();
 }
 
