@@ -7,23 +7,19 @@ const profession = document.querySelector('.profile__profession');
 const popupContainer = document.querySelector('#popup_container');
 const NameTemplate = document.querySelector('#popup_name').content;
 const PlaceTemplate = document.querySelector('#popup_place').content;
-
-/*const nameInput = NameTemplate.querySelector('#name');
-const professionInput = PlaceTemplate.querySelector('#profession');*/
-
+const nameInput = document.querySelector('#name');
 
 const popupOpened = () => {
   popup.classList.add('popup_opened');
   const formName = NameTemplate.cloneNode(true);
+  formName.querySelector('#name').value = name.textContent;
+  formName.querySelector('#profession').value = profession.textContent;
   popupContainer.append(formName);
-  /*nameInput.value = name.textContent;
-  professionInput.value = profession.textContent;*/
-
-}
+  }
 
 const popupClosed = () => {
   popup.classList.remove('popup_opened');
-  const popupForm = document.querySelectorAll('#form, #form-place');
+  const popupForm = document.querySelectorAll('#form-name, #form-place');
   popupForm.forEach((item) => {
     item.remove();
   });
@@ -37,12 +33,14 @@ const popupPlaceOpened = () => {
 
 const formSubmitHandler = (evt) => {
   evt.preventDefault();
-  /*name.textContent = nameInput.value;
-  profession.textContent = professionInput.value;*/
+  const nameItem = document.querySelector('#name').value;
+  name.textContent = nameItem;
+  const professionItem = document.querySelector('#profession').value;
+  profession.textContent = professionItem;
   popupClosed();
 }
 
-
+//сделай второй сабмит и вторую кнопку с сабмитом
 
 closeButton.addEventListener('click', popupClosed);
 editButton.addEventListener('click', popupOpened);
