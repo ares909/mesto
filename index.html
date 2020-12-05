@@ -16,32 +16,23 @@
   </header>
   <section class="popup">
     <div class="popup__container" id="popup_container">
-      <template id="popup_name">
-        <form class="popup__form" name="form" id="form-name">
-          <fieldset class="popup__form-container">
-            <h2 class="popup__form-heading">Редактировать профиль</h2>
-            <input name="name" id="name" type="text" class="popup__form-text">
-            <input name="profession" id="profession" type="text" class="popup__form-text">
-            <button class="popup__form-button" type="submit">Сохранить</button>
-
-          </fieldset>
-
-        </form>
-      </template>
-      <template id="popup_place">
-
-        <form class="popup__form" name="form-place" id="form-place">
-          <fieldset class="popup__form-container">
-            <h2 class="popup__form-heading">Новое место</h2>
-            <input name="place" id="place" type="text" class="popup__form-text" placeholder="Название">
-            <input name="image" id="image" type="url" class="popup__form-text" placeholder="Ссылка на картинку">
-            <button class="popup__form-button" type="submit">Создать</button>
-          </fieldset>
-        </form>
-
-      </template>
+      <form class="popup__form" name="form" id="form-name">
+        <fieldset class="popup__form-container">
+          <h2 class="popup__form-heading">Редактировать профиль</h2>
+          <input name="name" id="name" type="text" class="popup__form-text">
+          <input name="profession" id="profession" type="text" class="popup__form-text">
+          <button class="popup__form-button" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
+      <form class="popup__form" name="form-place" id="form-place">
+        <fieldset class="popup__form-container">
+          <h2 class="popup__form-heading">Новое место</h2>
+          <input name="place" id="place" type="text" class="popup__form-text" placeholder="Название">
+          <input name="image" id="image" type="url" class="popup__form-text" placeholder="Ссылка на картинку">
+          <button class="popup__form-button" type="submit">Создать</button>
+        </fieldset>
+      </form>
       <button class="popup__cross hover" type="button"></button>
-
     </div>
   </section>
   <main>
