@@ -24,18 +24,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-/*const namesOnly = initialCards.map(function (item) {
-  return item.name;
-});
-const linksOnly = initialCards.map(function (item) {
-  return item.link;
-});
-const namesExist = [...placeName];
-console.log(namesExist.value);
-// дописать код на добавление карточек*/
-
-
-
 
 const placeImage = document.querySelectorAll('.element__image');
 const placeName = document.querySelectorAll('.element__text');
@@ -52,14 +40,23 @@ const formPlace = document.querySelector('#form-place');
 const nameInput = document.querySelector('#name');
 const professionInput = document.querySelector('#profession');
 const likeButton = document.querySelectorAll('.element__like');
+const elementContainer = document.querySelector('.elements');
+const elementTemplate = document.querySelector('#elementTemplate').content;
 
-/*function newNames() {
 
-  placeName.forEach((item) => {
-    console.log(item.textContent);
-  });
-}
-newNames();*/
+
+
+
+const uploadCards = initialCards.map((item) => {
+  const elements = elementTemplate.cloneNode(true);
+  const elementImage = elements.querySelector('.element__image');
+  const elementText = elements.querySelector('.element__text');
+  elementImage.src = item.link;
+  elementImage.alt = item.name;
+  elementText.textContent = item.name;
+  return elements;
+});
+elementContainer.prepend(...uploadCards);
 
 const popupOpen = () => {
   popup.classList.add('popup_opened');
@@ -89,6 +86,11 @@ const formNameSubmitHandler = (evt) => {
   popupClose();
 }
 
+const formPlaceSubmitHandler = (evt) => {
+  evt.preventDefault();
+
+  popupClose();
+}
 
 
 //сделай второй сабмит и вторую кнопку с сабмитом
@@ -96,12 +98,17 @@ const formNameSubmitHandler = (evt) => {
 closeButton.addEventListener('click', popupClose);
 editButton.addEventListener('click', popupOpen);
 addButton.addEventListener('click', popupPlaceOpen);
-popup.addEventListener('submit', formNameSubmitHandler);
+formName.addEventListener('submit', formNameSubmitHandler);
+formPlace.addEventListener('submit', formPlaceSubmitHandler);
+
+
 //ставим лайк
-likeButton.forEach(function (item) => {
+likeButton.forEach(function (item) {
   item.addEventListener('click', (evt) => {
+
   evt.target.classList.toggle('element__like_active');
   })
 })
+
 
 
