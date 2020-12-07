@@ -39,12 +39,8 @@ const formName = document.querySelector('#form-name');
 const formPlace = document.querySelector('#form-place');
 const nameInput = document.querySelector('#name');
 const professionInput = document.querySelector('#profession');
-const likeButton = document.querySelectorAll('.element__like');
 const elementContainer = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#elementTemplate').content;
-
-
-
 
 
 const uploadCards = initialCards.map((item) => {
@@ -57,6 +53,8 @@ const uploadCards = initialCards.map((item) => {
   return elements;
 });
 elementContainer.prepend(...uploadCards);
+
+const likeButton = document.querySelectorAll('.element__like');
 
 const popupOpen = () => {
   popup.classList.add('popup_opened');
