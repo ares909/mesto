@@ -9,4 +9,5 @@
   list-style-type: none;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 }

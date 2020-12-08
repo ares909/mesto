@@ -42,6 +42,7 @@ const nameInput = document.querySelector('#name');
 const professionInput = document.querySelector('#profession');
 const elementContainer = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#elementTemplate').content;
+const popupImage = document.querySelector('#popup_image-container');
 
 
 //Шаблон для создания карточек
@@ -53,7 +54,7 @@ const createCards = ({name, link}) => {
   elementImage.alt = name;
   elementText.textContent = name;
   const likeButton = element.querySelectorAll('.element__like');
-//ставим лайе
+//ставим лайк
   likeButton.forEach((item) => {
     item.addEventListener('click', (evt) => {
       evt.target.classList.toggle('element__like_active');
@@ -65,10 +66,22 @@ const createCards = ({name, link}) => {
     const cardToRemove = evt.target.closest('#element');
     cardToRemove.remove();
   });
+//попап с картинкой (сейчас кнопка = картинка, сделать кнопкой всю карточку, проставить z-indexы)
+  const popupButton = elementImage;
+  popupButton.addEventListener('click', function (evt) {
+    popup.classList.add('popup_opened');
+    popupImage.classList.add('popup__image-container_opened');
+    const targetImage = document.querySelector('#popup-image');
+    const targetDescription = document.querySelector('#description');
+    targetImage.src = link;
+    targetImage.alt = name;
+    targetDescription.textContent = name;
 
-return element;
+
+  });
+
+  return element;
 }
-
 
 //Загрузка первоначальных карточек
 const uploadCards = () => {
@@ -90,9 +103,11 @@ const popupOpen = () => {
 //закрыть попап
 const popupClose = () => {
   popup.classList.remove('popup_opened');
-  const popupForm = document.querySelectorAll('#form-name, #form-place');
+  const popupForm = document.querySelectorAll('#form-name, #form-place, #popup_image-container');
   popupForm.forEach((item) => {
     item.classList.remove('popup__form_opened');
+    item.classList.remove('popup__image-container_opened');
+
   });
 }
 //открыть форму с местом
@@ -108,10 +123,6 @@ const formNameSubmitHandler = (evt) => {
   profession.textContent = professionInput.value;
   popupClose();
 }
-
-
-//Залинкуй чтобы  в поля формы выводилась функция
-
 
 
 //Загрузка новой карточки
@@ -134,17 +145,6 @@ editButton.addEventListener('click', popupOpen);
 addButton.addEventListener('click', popupPlaceOpen);
 formName.addEventListener('submit', formNameSubmitHandler);
 formPlace.addEventListener('submit', formPlaceSubmitHandler);
-
-//ставим лайк
-
-/*const likeButton = document.querySelectorAll('.element__like');
-likeButton.forEach(function (item) {
-  item.addEventListener('click', (evt) => {
-
-    evt.target.classList.toggle('element__like_active');
-  })
-})
-*/
 
 
 
