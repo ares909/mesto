@@ -25,15 +25,13 @@ const initialCards = [
   }
 ];
 
-const placeImage = document.querySelectorAll('.element__image');
-const placeName = document.querySelectorAll('.element__text');
+
 const editButton = document.querySelector('.profile__editbutton');
 const closeButton = document.querySelectorAll('.popup__cross');
 const addButton = document.querySelector('.profile__addbutton');
 const popup = document.querySelector('.popup');
 const name = document.querySelector('.profile__name');
 const profession = document.querySelector('.profile__profession');
-const popupContainer = document.querySelector('#popup_container');
 const formName = document.querySelector('#form-name');
 const formPlace = document.querySelector('#form-place');
 const placeInput = document.querySelector('#place');
@@ -68,7 +66,7 @@ const createCards = ({name, link}) => {
   });
 //попап с картинкой (сейчас кнопка = картинка, сделать кнопкой всю карточку, проставить z-indexы)
   const popupButton = elementImage;
-  popupButton.addEventListener('click', function (evt) {
+  popupButton.addEventListener('click', function () {
     popup.classList.add('popup_opened');
     popupImage.classList.add('popup__image-container_opened');
     const targetImage = document.querySelector('#popup-image');
@@ -76,10 +74,7 @@ const createCards = ({name, link}) => {
     targetImage.src = link;
     targetImage.alt = name;
     targetDescription.textContent = name;
-
-
   });
-
   return element;
 }
 
@@ -90,10 +85,8 @@ const uploadCards = () => {
 }
 uploadCards();
 
-
-
 //открыть попап с именем
-const popupOpen = () => {
+const openPopup = () => {
   popup.classList.add('popup_opened');
   formName.classList.add('popup__form_opened');
   nameInput.value = name.textContent;
@@ -101,14 +94,13 @@ const popupOpen = () => {
 
 }
 //закрыть попап
-const popupClose = () => {
+const closePopup = () => {
   popup.classList.remove('popup_opened');
   const popupForm = document.querySelectorAll('#form-name, #form-place, #popup_image-container');
   popupForm.forEach((item) => {
     item.classList.remove('popup__form_opened');
     item.classList.remove('popup__card_opened');
     item.classList.remove('popup__image-container_opened');
-
   });
 }
 //открыть форму с местом
@@ -122,7 +114,7 @@ const formNameSubmitHandler = (evt) => {
   evt.preventDefault();
   name.textContent = nameInput.value;
   profession.textContent = professionInput.value;
-  popupClose();
+  closePopup();
 }
 
 
@@ -134,14 +126,14 @@ const formPlaceSubmitHandler = (evt) => {
   const cardImage = imageInput.value;
   const element = createCards({name: cardPlace, link: cardImage});
   elementContainer.prepend(element);
-  popupClose();
+  closePopup();
 }
 
 //Привязываем кнопки к функциям
 closeButton.forEach((item) => {
-  item.addEventListener('click', popupClose)
+  item.addEventListener('click', closePopup)
 });
-editButton.addEventListener('click', popupOpen);
+editButton.addEventListener('click', openPopup);
 addButton.addEventListener('click', popupPlaceOpen);
 formName.addEventListener('submit', formNameSubmitHandler);
 formPlace.addEventListener('submit', formPlaceSubmitHandler);
