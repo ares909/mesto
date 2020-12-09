@@ -23,23 +23,32 @@
           <input name="profession" id="profession" type="text" class="popup__form-text">
           <button class="popup__form-button" type="submit">Сохранить</button>
         </fieldset>
+        <button class="popup__cross hover" type="button"></button>
       </form>
-      <form class="popup__form" name="form-place" id="form-place">
-        <fieldset class="popup__form-container">
-          <h2 class="popup__form-heading">Новое место</h2>
-          <input name="place" id="place" type="text" class="popup__form-text" placeholder="Название">
-          <input name="image" id="image" type="url" class="popup__form-text" placeholder="Ссылка на картинку">
-          <button class="popup__form-button" type="submit">Создать</button>
+
+    </div>
+    <div class="popup__container" id="popup_container">
+      <form class="popup__card" name="form-place" id="form-place">
+        <fieldset class="popup__card-container">
+          <h2 class="popup__card-heading">Новое место</h2>
+          <input name="place" id="place" type="text" class="popup__card-text" placeholder="Название">
+          <input name="image" id="image" type="url" class="popup__card-text" placeholder="Ссылка на картинку">
+          <button class="popup__card-button" type="submit">Создать</button>
         </fieldset>
+        <button class="popup__cross popup__cross_right hover" type="button"></button>
       </form>
+
+    </div>
+    <div class="popup__container" id="popup_container">
       <div class="popup__image-container" id="popup_image-container">
         <img class="popup__image" src="./blocks/element/__image/images/dombay.jpg" alt="домбай" id="popup-image">
         <p class="popup__description" id="description">Домбай</p>
+        <button class="popup__cross popup__cross_right hover" type="button"></button>
       </div>
 
-
-      <button class="popup__cross hover" type="button"></button>
     </div>
+
+
   </section>
   <main>
     <section class="profile">

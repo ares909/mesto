@@ -28,7 +28,7 @@ const initialCards = [
 const placeImage = document.querySelectorAll('.element__image');
 const placeName = document.querySelectorAll('.element__text');
 const editButton = document.querySelector('.profile__editbutton');
-const closeButton = document.querySelector('.popup__cross');
+const closeButton = document.querySelectorAll('.popup__cross');
 const addButton = document.querySelector('.profile__addbutton');
 const popup = document.querySelector('.popup');
 const name = document.querySelector('.profile__name');
@@ -106,6 +106,7 @@ const popupClose = () => {
   const popupForm = document.querySelectorAll('#form-name, #form-place, #popup_image-container');
   popupForm.forEach((item) => {
     item.classList.remove('popup__form_opened');
+    item.classList.remove('popup__card_opened');
     item.classList.remove('popup__image-container_opened');
 
   });
@@ -113,7 +114,7 @@ const popupClose = () => {
 //открыть форму с местом
 const popupPlaceOpen = () => {
   popup.classList.add('popup_opened');
-  formPlace.classList.add('popup__form_opened');
+  formPlace.classList.add('popup__card_opened');
 }
 
 //сохранить форму с именем
@@ -136,11 +137,10 @@ const formPlaceSubmitHandler = (evt) => {
   popupClose();
 }
 
-
-
-//сделай второй сабмит и вторую кнопку с сабмитом
-
-closeButton.addEventListener('click', popupClose);
+//Привязываем кнопки к функциям
+closeButton.forEach((item) => {
+  item.addEventListener('click', popupClose)
+});
 editButton.addEventListener('click', popupOpen);
 addButton.addEventListener('click', popupPlaceOpen);
 formName.addEventListener('submit', formNameSubmitHandler);
