@@ -27,7 +27,9 @@ const initialCards = [
 
 
 const editButton = document.querySelector('.profile__editbutton');
-const closeButton = document.querySelectorAll('.popup__cross');
+const closeFormNameButton = document.querySelector('#close_card-name');
+const closeFormPlaceButton = document.querySelector('#close_card-place');
+const closeImageButton = document.querySelector('#close_image');
 const addButton = document.querySelector('.profile__addbutton');
 const popup = document.querySelector('.popup');
 const name = document.querySelector('.profile__name');
@@ -42,31 +44,27 @@ const elementContainer = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#elementTemplate').content;
 const popupImage = document.querySelector('#popup_image-container');
 
-
 //Шаблон для создания карточек
-const createCards = ({name, link}) => {
+const createCards = ({ name, link }) => {
   const element = elementTemplate.cloneNode(true);
   const elementImage = element.querySelector('.element__image');
   const elementText = element.querySelector('.element__text');
   elementImage.src = link;
   elementImage.alt = name;
   elementText.textContent = name;
-  const likeButton = element.querySelectorAll('.element__like');
-//ставим лайк
-  likeButton.forEach((item) => {
-    item.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('element__like_active');
-    });
+  const likeButton = element.querySelector('.element__like');
+  //ставим лайк
+  likeButton.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('element__like_active');
   });
-//удаляем карточку
+
+  //удаляем карточку
   const deleteButton = element.querySelector('.element__trash');
   deleteButton.addEventListener('click', function (evt) {
-    const cardToRemove = evt.target.closest('#element');
-    cardToRemove.remove();
+    evt.target.closest('#element').remove();
   });
-//попап с картинкой (сейчас кнопка = картинка, сделать кнопкой всю карточку, проставить z-indexы)
-  const popupButton = elementImage;
-  popupButton.addEventListener('click', function () {
+  //попап с картинкой
+  elementImage.addEventListener('click', function () {
     popup.classList.add('popup_opened');
     popupImage.classList.add('popup__image-container_opened');
     const targetImage = document.querySelector('#popup-image');
@@ -81,32 +79,31 @@ const createCards = ({name, link}) => {
 //Загрузка первоначальных карточек
 const uploadCards = () => {
   const arrayCards = initialCards.map(createCards);
-  elementContainer.prepend(...arrayCards);
+  elementContainer.append(...arrayCards);
 }
 uploadCards();
 
-//открыть попап с именем
+//открыть попап
 const openPopup = () => {
   popup.classList.add('popup_opened');
-  formName.classList.add('popup__form_opened');
-  nameInput.value = name.textContent;
-  professionInput.value = profession.textContent;
-
 }
 //закрыть попап
 const closePopup = () => {
   popup.classList.remove('popup_opened');
-  const popupForm = document.querySelectorAll('#form-name, #form-place, #popup_image-container');
-  popupForm.forEach((item) => {
-    item.classList.remove('popup__form_opened');
-    item.classList.remove('popup__card_opened');
-    item.classList.remove('popup__image-container_opened');
-  });
 }
-//открыть форму с местом
-const popupPlaceOpen = () => {
-  popup.classList.add('popup_opened');
-  formPlace.classList.add('popup__card_opened');
+
+//открыть форму с именем
+const openFormName = () => {
+  openPopup(formName);
+  formName.classList.add('popup__form_opened');
+  nameInput.value = name.textContent;
+  professionInput.value = profession.textContent;
+}
+
+//закрыть форму с именем
+const closeFormName = () => {
+  closePopup(formName);
+  formName.classList.remove('popup__form_opened');
 }
 
 //сохранить форму с именем
@@ -114,27 +111,43 @@ const formNameSubmitHandler = (evt) => {
   evt.preventDefault();
   name.textContent = nameInput.value;
   profession.textContent = professionInput.value;
-  closePopup();
+  closeFormName();
 }
 
+//открыть форму с местом
+const openFormPlace = () => {
+  openPopup(formPlace);
+  formPlace.classList.add('popup__card_opened');
+}
+
+//закрыть форму с местом
+const closeFormPlace = () => {
+  closePopup(formPlace);
+  formPlace.classList.remove('popup__card_opened');
+}
+//закрыть попап с картинкой
+const closeImage = () => {
+  closePopup(popupImage);
+  popupImage.classList.remove('popup__image-container_opened');
+}
 
 //Загрузка новой карточки
-
 const formPlaceSubmitHandler = (evt) => {
   evt.preventDefault();
   const cardPlace = placeInput.value;
   const cardImage = imageInput.value;
-  const element = createCards({name: cardPlace, link: cardImage});
+  const element = createCards({ name: cardPlace, link: cardImage });
   elementContainer.prepend(element);
-  closePopup();
+  formPlace.reset();
+  closeFormPlace();
 }
 
 //Привязываем кнопки к функциям
-closeButton.forEach((item) => {
-  item.addEventListener('click', closePopup)
-});
-editButton.addEventListener('click', openPopup);
-addButton.addEventListener('click', popupPlaceOpen);
+closeFormNameButton.addEventListener('click', closeFormName);
+closeFormPlaceButton.addEventListener('click', closeFormPlace);
+closeImageButton.addEventListener('click', closeImage);
+editButton.addEventListener('click', openFormName);
+addButton.addEventListener('click', openFormPlace);
 formName.addEventListener('submit', formNameSubmitHandler);
 formPlace.addEventListener('submit', formPlaceSubmitHandler);
 
