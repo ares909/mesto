@@ -31,7 +31,7 @@ const closeFormNameButton = document.querySelector('#close_card-name');
 const closeFormPlaceButton = document.querySelector('#close_card-place');
 const closeImageButton = document.querySelector('#close_image');
 const addButton = document.querySelector('.profile__addbutton');
-const popup = document.querySelector('.popup');
+/*const popup = document.querySelector('.popup');*/
 const name = document.querySelector('.profile__name');
 const profession = document.querySelector('.profile__profession');
 const formName = document.querySelector('#form-name');
@@ -43,6 +43,9 @@ const professionInput = document.querySelector('#profession');
 const elementContainer = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#elementTemplate').content;
 const popupImage = document.querySelector('#popup_image-container');
+const formCardReset = document.querySelector('.popup__card');
+
+
 
 //Шаблон для создания карточек
 const createCards = ({ name, link }) => {
@@ -65,8 +68,7 @@ const createCards = ({ name, link }) => {
   });
   //попап с картинкой
   elementImage.addEventListener('click', function () {
-    popup.classList.add('popup_opened');
-    popupImage.classList.add('popup__image-container_opened');
+    openPopup(popupImage);
     const targetImage = document.querySelector('#popup-image');
     const targetDescription = document.querySelector('#description');
     targetImage.src = link;
@@ -84,18 +86,17 @@ const uploadCards = () => {
 uploadCards();
 
 //открыть попап
-const openPopup = () => {
+const openPopup = (popup) => {
   popup.classList.add('popup_opened');
 }
 //закрыть попап
-const closePopup = () => {
+const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 }
 
 //открыть форму с именем
 const openFormName = () => {
   openPopup(formName);
-  formName.classList.add('popup__form_opened');
   nameInput.value = name.textContent;
   professionInput.value = profession.textContent;
 }
@@ -103,7 +104,6 @@ const openFormName = () => {
 //закрыть форму с именем
 const closeFormName = () => {
   closePopup(formName);
-  formName.classList.remove('popup__form_opened');
 }
 
 //сохранить форму с именем
@@ -117,18 +117,15 @@ const formNameSubmitHandler = (evt) => {
 //открыть форму с местом
 const openFormPlace = () => {
   openPopup(formPlace);
-  formPlace.classList.add('popup__card_opened');
 }
 
 //закрыть форму с местом
 const closeFormPlace = () => {
   closePopup(formPlace);
-  formPlace.classList.remove('popup__card_opened');
 }
 //закрыть попап с картинкой
 const closeImage = () => {
   closePopup(popupImage);
-  popupImage.classList.remove('popup__image-container_opened');
 }
 
 //Загрузка новой карточки
@@ -138,7 +135,7 @@ const formPlaceSubmitHandler = (evt) => {
   const cardImage = imageInput.value;
   const element = createCards({ name: cardPlace, link: cardImage });
   elementContainer.prepend(element);
-  formPlace.reset();
+  formCardReset.reset();
   closeFormPlace();
 }
 
