@@ -43,7 +43,8 @@ const professionInput = document.querySelector('#profession-input');
 const elementContainer = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#elementTemplate').content;
 const popupImage = document.querySelector('#popup_image-container');
-const formCardReset = document.querySelector('.popup__card');
+const formProfile = document.forms.formProfile;
+const formCard = document.forms.formCard;
 
 
 
@@ -135,7 +136,7 @@ const formPlaceSubmitHandler = (evt) => {
   const cardImage = imageInput.value;
   const element = createCards({ name: cardPlace, link: cardImage });
   elementContainer.prepend(element);
-  formCardReset.reset();
+  formCard.reset();
   closeFormPlace();
 }
 

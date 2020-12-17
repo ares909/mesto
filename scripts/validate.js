@@ -1,110 +1,55 @@
-<<<<<<< HEAD
-
-
-
-
-=======
 const formElement = document.querySelector('.popup__form');
-const formInput = document.querySelector('.popup__form-text');
-const formError = document.querySelector(`.${formInput.id}-error`);
-console.log(formElement);
-console.log(formInput);
-console.log(formError);
 
-const showError = (input, errorMessage) => {
-  input.classList.add('popup__error-border')
-  formError.textContent = errorMessage;
-  formError.classList.add('popup__input-error_active')
-}
-
-const hideError = (input) => {
-  input.classList.remove('popup__error-border')
-  formError.classList.remove('popup__input-error_active');
-}
-
-const checkInputValidity = () => {
-if (!formInput.validity.valid) {
-  showError(formInput, formInput.validationMessage);
-}
-else
-{
-  hideError(formInput);
-}
-}
-
-formElement.addEventListener('input', function (evt) {
-  evt.preventDefault();
-})
->>>>>>> 4b01b953786ee53cf42fd41fd3459bed041643ef
+const inputElement = formElement.querySelector('.popup__form-text');
 
 
 
 
-
-
-
-
-
-<<<<<<< HEAD
-/*enableValidation({
-=======
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*const showInputError = (formElement, inputElement, errorMessage) => {
-const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-formElement.classList.add('popup__error-border');
-
-}
-const hideInputError = () => {}
-
+const showError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('popup__form_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__error_visible');
+};
+const hideError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__form_type_error');
+  errorElement.classList.remove('popup__error_visible');
+  /*errorElement.textContent = "";*/
+};
 const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+if (!inputElement.validity.valid) {
+  showError(formElement, inputElement, inputElement.validationMessage);
   }
+else {
+  hideError(formElement, inputElement);
 }
-
+}
+const setEventListeners = (formElement) => {
+const inputList = Array.from(document.querySelectorAll('.popup__form-text'));
+inputList.forEach((inputElement) => {
+  inputElement.addEventListener('input', () => {
+    checkInputValidity(formElement, inputElement)
+  });
+});
+};
 const enableValidation = () => {
-const formList = Array.from(document.querySelectorAll('.popup__form'));
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) =>{
+      evt.preventDefault();
+    });
+    setEventListeners(formElement);
+  });
+};
 
-}
+
 
 enableValidation({
->>>>>>> 4b01b953786ee53cf42fd41fd3459bed041643ef
   formSelector: '.popup__form',
   inputSelector: '.popup__form-text',
   submitButtonSelector: '.popup__form-button',
   inactiveButtonClass: 'popup__form-button_disabled',
-<<<<<<< HEAD
   inputErrorClass: 'popup__form_type_error',
   errorClass: 'popup__error_visible'
-}); */
-
-
-=======
-  inputErrorClass: 'popup__error-border',
-  errorClass: 'popup__input-error_active'
 });
-*/
->>>>>>> 4b01b953786ee53cf42fd41fd3459bed041643ef

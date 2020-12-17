@@ -16,7 +16,7 @@
   </header>
   <section class="popup" id="form-name">
     <div class="popup__container" id="popup_container">
-      <form class="popup__form">
+      <form class="popup__form" name="formProfile" novalidate>
         <fieldset class="popup__form-container" id="form_name_container">
           <h2 class="popup__form-heading">Редактировать профиль</h2>
           <input name="name" id="name-input" type="text" class="popup__form-text" required minlength="2" maxlength="40">
@@ -32,7 +32,7 @@
   </section>
   <section class="popup" id="form-place">
     <div class="popup__container">
-      <form class="popup__form popup__card">
+      <form class="popup__form popup__card" name="formCard" novalidate>
         <fieldset class="popup__card-container">
           <h2 class="popup__card-heading">Новое место</h2>
           <input name="place" id="place-input" type="text" class="popup__form-text popup__card-text" required placeholder="Название" minlength="2" maxlength="30">
