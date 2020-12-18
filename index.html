@@ -20,9 +20,9 @@
         <fieldset class="popup__form-container" id="form_name_container">
           <h2 class="popup__form-heading">Редактировать профиль</h2>
           <input name="name" id="name-input" type="text" class="popup__form-text" required minlength="2" maxlength="40">
-          <span class="popup__error name-input-error"></span>
+          <span class="popup__error" id="name-input-error"></span>
           <input name="profession" id="profession-input" type="text" class="popup__form-text" required minlength="2" maxlength="200">
-          <span class="popup__error profession-input-error"></span>
+          <span class="popup__error" id="profession-input-error"></span>
           <button class="popup__form-button" type="submit">Сохранить</button>
         </fieldset>
         <button class="popup__cross hover" type="button" id="close_card-name"></button>
@@ -36,9 +36,9 @@
         <fieldset class="popup__card-container">
           <h2 class="popup__card-heading">Новое место</h2>
           <input name="place" id="place-input" type="text" class="popup__form-text popup__card-text" required placeholder="Название" minlength="2" maxlength="30">
-          <span class="popup__error place-input-error"></span>
+          <span class="popup__error" id="place-input-error"></span>
           <input name="image" id="image-input" type="url" class="popup__form-text popup__card-text" required placeholder="Ссылка на картинку">
-          <span class="popup__error image-input-error"></span>
+          <span class="popup__error" id="image-input-error"></span>
           <button class="popup__form-button popup__card-button" type="submit">Создать</button>
         </fieldset>
         <button class="popup__cross popup__cross_right hover" type="button" id="close_card-place"></button>
