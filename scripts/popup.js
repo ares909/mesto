@@ -170,6 +170,7 @@ function closeByEscButton(evt) {
     closePopup(popupOpened);
   }
 }
+//вешаем на весь документ обработчик нажатия
 document.addEventListener('keydown', closeByEscButton);
 
 
