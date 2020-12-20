@@ -31,7 +31,7 @@ const closeFormNameButton = document.querySelector('#close_card-name');
 const closeFormPlaceButton = document.querySelector('#close_card-place');
 const closeImageButton = document.querySelector('#close_image');
 const addButton = document.querySelector('.profile__addbutton');
-/*const popup = document.querySelector('.popup');*/
+const popup = document.querySelectorAll('.popup');
 const name = document.querySelector('.profile__name');
 const profession = document.querySelector('.profile__profession');
 const formName = document.querySelector('#form-name');
@@ -45,6 +45,7 @@ const elementTemplate = document.querySelector('#elementTemplate').content;
 const popupImage = document.querySelector('#popup_image-container');
 const formProfile = document.forms.formProfile;
 const formCard = document.forms.formCard;
+
 
 
 
@@ -100,6 +101,7 @@ const openFormName = () => {
   openPopup(formName);
   nameInput.value = name.textContent;
   professionInput.value = profession.textContent;
+  enableValidation(validationSettings);
 }
 
 //закрыть форму с именем
@@ -118,6 +120,7 @@ const formNameSubmitHandler = (evt) => {
 //открыть форму с местом
 const openFormPlace = () => {
   openPopup(formPlace);
+  enableValidation(validationSettings);
 }
 
 //закрыть форму с местом
@@ -140,6 +143,8 @@ const formPlaceSubmitHandler = (evt) => {
   closeFormPlace();
 }
 
+
+
 //Привязываем кнопки к функциям
 closeFormNameButton.addEventListener('click', closeFormName);
 closeFormPlaceButton.addEventListener('click', closeFormPlace);
@@ -148,6 +153,26 @@ editButton.addEventListener('click', openFormName);
 addButton.addEventListener('click', openFormPlace);
 formName.addEventListener('submit', formNameSubmitHandler);
 formPlace.addEventListener('submit', formPlaceSubmitHandler);
+
+//закрываем попапы кликом на оверлей
+popup.forEach((item) => {
+  item.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      closePopup(evt.target);
+    }
+  })
+})
+//закрываем формы нажатием Esc
+
+function closeByEscButton(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popupOpened);
+  }
+}
+document.addEventListener('keydown', closeByEscButton);
+
+
 
 
 

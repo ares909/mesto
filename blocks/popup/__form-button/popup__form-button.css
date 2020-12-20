@@ -1,5 +1,5 @@
 .popup__form-button {
-  margin-top: 48px;
+  margin-top: 18px;
   color: white;
   background-color: black;
   padding: 14px 18px;
@@ -23,6 +23,6 @@
   .popup__form-button {
     font-size: 14px;
     line-height: 17px;
-    margin-top: 45px;
+    margin-top: 15px;
   }
 }

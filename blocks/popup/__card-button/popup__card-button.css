@@ -1,6 +1,5 @@
 .popup__card-button {
-  margin-top: 48px;
-  color: white;
+    color: white;
   background-color: black;
   padding: 14px 18px;
   cursor: pointer;
@@ -23,7 +22,7 @@
   .popup__card-button {
     font-size: 14px;
     line-height: 17px;
-    margin-top: 36px;
+    margin-top: 6px;
     padding: 12px 14px;
   }
 }
