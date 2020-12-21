@@ -22,8 +22,8 @@ function checkInputValidity(form, input, settings) {
   }
 }
 //активируем/деактивируем кнопку
-function changeSubmitButton(button, isValid, settings) {
-  if (!isValid) {
+function changeSubmitButton(button, validation, settings) {
+  if (!validation) {
     button.classList.add(settings.inactiveButtonClass);
     button.disabled = true;
   }
@@ -38,7 +38,11 @@ function setEventListeners(form, settings) {
   const inputList = form.querySelectorAll(settings.inputSelector);
   const submitButton = form.querySelector(settings.submitButtonSelector);
   inputList.forEach((input) => {
-    input.addEventListener('input', (evt) => {
+//убираем ошибку, если закрыли форму, не исправив ее
+    if (input.value === '' || input.validity.valid) {
+      hideError(form, input, settings)
+    }
+    input.addEventListener('input', () => {
       checkInputValidity(form, input, settings);
       changeSubmitButton(submitButton, form.checkValidity(), settings)
     });

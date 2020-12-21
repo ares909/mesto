@@ -49,6 +49,7 @@ const formCard = document.forms.formCard;
 
 
 
+
 //Шаблон для создания карточек
 const createCards = ({ name, link }) => {
   const element = elementTemplate.cloneNode(true);
@@ -90,15 +91,21 @@ uploadCards();
 //открыть попап
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  //вешаем на весь документ обработчик нажатия
+  document.addEventListener('keydown', closeByEscButton);
 }
 //закрыть попап
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  //удаляем обработчик нажатия
+  document.removeEventListener('keydown', closeByEscButton);
+
 }
 
 //открыть форму с именем
 const openFormName = () => {
   openPopup(formName);
+  formProfile.reset();
   nameInput.value = name.textContent;
   professionInput.value = profession.textContent;
   enableValidation(validationSettings);
@@ -120,6 +127,7 @@ const formNameSubmitHandler = (evt) => {
 //открыть форму с местом
 const openFormPlace = () => {
   openPopup(formPlace);
+  formCard.reset();
   enableValidation(validationSettings);
 }
 
@@ -170,8 +178,7 @@ function closeByEscButton(evt) {
     closePopup(popupOpened);
   }
 }
-//вешаем на весь документ обработчик нажатия
-document.addEventListener('keydown', closeByEscButton);
+
 
 
 
