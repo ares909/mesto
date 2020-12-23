@@ -1,3 +1,4 @@
+
 //показываем ошибку валидации
 function showError(form, input, settings) {
   const error = form.querySelector(`#${input.id}-error`);
@@ -31,23 +32,6 @@ function changeSubmitButton(button, validation, settings) {
     button.classList.remove(settings.inactiveButtonClass);
     button.disabled = false;
   }
-}
-//убираем ошибку, если закрыли форму, не исправив ее
-
-function resetErrorMessage(form, settings) {
-  const inputList = form.querySelectorAll(settings.inputSelector);
-  inputList.forEach((input) => {
-  hideError(form, input, settings)
-  });
-}
-
-//Сбрасываем валидацию кнопки после закрытия формы с ошибкой
-function resetSubmitButton(settings) {
-  const formList = document.querySelectorAll(settings.formSelector);
-  formList.forEach(form => {
-    const submitButton = form.querySelector(settings.submitButtonSelector);
-    changeSubmitButton(submitButton, form.checkValidity(), settings);
-});
 }
 
 //вешаем обработчики событий на все инпуты
@@ -83,5 +67,22 @@ const validationSettings = {
   inputErrorClass: 'popup__form_type_error',
   errorClass: 'popup__error_visible'
 };
+//убираем ошибку, если закрыли форму, не исправив ее
+
+function resetErrorMessage(form, settings) {
+  const inputList = form.querySelectorAll(settings.inputSelector);
+  inputList.forEach((input) => {
+  hideError(form, input, settings)
+  });
+}
+
+//Сбрасываем валидацию кнопки после закрытия формы с ошибкой
+function resetSubmitButton(settings) {
+  const formList = document.querySelectorAll(settings.formSelector);
+  formList.forEach(form => {
+    const submitButton = form.querySelector(settings.submitButtonSelector);
+    changeSubmitButton(submitButton, form.checkValidity(), settings);
+});
+}
 
 
