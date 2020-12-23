@@ -1,3 +1,4 @@
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -31,7 +32,7 @@ const closeFormNameButton = document.querySelector('#close_card-name');
 const closeFormPlaceButton = document.querySelector('#close_card-place');
 const closeImageButton = document.querySelector('#close_image');
 const addButton = document.querySelector('.profile__addbutton');
-const popup = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 const name = document.querySelector('.profile__name');
 const profession = document.querySelector('.profile__profession');
 const formName = document.querySelector('#form-name');
@@ -45,10 +46,11 @@ const elementTemplate = document.querySelector('#elementTemplate').content;
 const popupImage = document.querySelector('#popup_image-container');
 const formProfile = document.forms.formProfile;
 const formCard = document.forms.formCard;
+const imagePopupPicture = document.querySelector('#popup-image');
+const imagePopupDescription = document.querySelector('#description');
 
-
-
-
+//вызываем функицю валидации
+enableValidation(validationSettings);
 
 //Шаблон для создания карточек
 const createCards = ({ name, link }) => {
@@ -67,16 +69,14 @@ const createCards = ({ name, link }) => {
   //удаляем карточку
   const deleteButton = element.querySelector('.element__trash');
   deleteButton.addEventListener('click', function (evt) {
-    evt.target.closest('#element').remove();
+    evt.target.closest('.element').remove();
   });
   //попап с картинкой
   elementImage.addEventListener('click', function () {
     openPopup(popupImage);
-    const targetImage = document.querySelector('#popup-image');
-    const targetDescription = document.querySelector('#description');
-    targetImage.src = link;
-    targetImage.alt = name;
-    targetDescription.textContent = name;
+    imagePopupPicture.src = link;
+    imagePopupPicture.alt = name;
+    imagePopupDescription.textContent = name;
   });
   return element;
 }
@@ -89,26 +89,28 @@ const uploadCards = () => {
 uploadCards();
 
 //открыть попап
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
+const openPopup = (popups) => {
+  popups.classList.add('popup_opened');
   //вешаем на весь документ обработчик нажатия
   document.addEventListener('keydown', closeByEscButton);
 }
 //закрыть попап
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
+const closePopup = (popups) => {
+  popups.classList.remove('popup_opened');
   //удаляем обработчик нажатия
   document.removeEventListener('keydown', closeByEscButton);
+  //функция сброса ошибки
 
 }
 
 //открыть форму с именем
 const openFormName = () => {
   openPopup(formName);
-  formProfile.reset();
   nameInput.value = name.textContent;
   professionInput.value = profession.textContent;
-  enableValidation(validationSettings);
+  resetErrorMessage(formName, validationSettings);
+  resetSubmitButton(validationSettings);
+  //enableValidation(validationSettings);
 }
 
 //закрыть форму с именем
@@ -124,11 +126,13 @@ const formNameSubmitHandler = (evt) => {
   closeFormName();
 }
 
+
 //открыть форму с местом
 const openFormPlace = () => {
   openPopup(formPlace);
+  resetErrorMessage(formPlace, validationSettings);
+  resetSubmitButton(validationSettings);
   formCard.reset();
-  enableValidation(validationSettings);
 }
 
 //закрыть форму с местом
@@ -147,7 +151,6 @@ const formPlaceSubmitHandler = (evt) => {
   const cardImage = imageInput.value;
   const element = createCards({ name: cardPlace, link: cardImage });
   elementContainer.prepend(element);
-  formCard.reset();
   closeFormPlace();
 }
 
@@ -163,7 +166,7 @@ formName.addEventListener('submit', formNameSubmitHandler);
 formPlace.addEventListener('submit', formPlaceSubmitHandler);
 
 //закрываем попапы кликом на оверлей
-popup.forEach((item) => {
+popups.forEach((item) => {
   item.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup')) {
       closePopup(evt.target);
@@ -173,8 +176,8 @@ popup.forEach((item) => {
 //закрываем формы нажатием Esc
 
 function closeByEscButton(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
 }

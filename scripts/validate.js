@@ -32,21 +32,34 @@ function changeSubmitButton(button, validation, settings) {
     button.disabled = false;
   }
 }
+//убираем ошибку, если закрыли форму, не исправив ее
+
+function resetErrorMessage(form, settings) {
+  const inputList = form.querySelectorAll(settings.inputSelector);
+  inputList.forEach((input) => {
+  hideError(form, input, settings)
+  });
+}
+
+//Сбрасываем валидацию кнопки после закрытия формы с ошибкой
+function resetSubmitButton(settings) {
+  const formList = document.querySelectorAll(settings.formSelector);
+  formList.forEach(form => {
+    const submitButton = form.querySelector(settings.submitButtonSelector);
+    changeSubmitButton(submitButton, form.checkValidity(), settings);
+});
+}
 
 //вешаем обработчики событий на все инпуты
 function setEventListeners(form, settings) {
   const inputList = form.querySelectorAll(settings.inputSelector);
   const submitButton = form.querySelector(settings.submitButtonSelector);
   inputList.forEach((input) => {
-//убираем ошибку, если закрыли форму, не исправив ее
-    if (input.value === '' || input.validity.valid) {
-      hideError(form, input, settings)
-    }
+    //resetErrorMessage(form, input, settings);
     input.addEventListener('input', () => {
       checkInputValidity(form, input, settings);
       changeSubmitButton(submitButton, form.checkValidity(), settings)
     });
-
   });
 }
 //вешаем обработчики событий на все формы
@@ -70,14 +83,5 @@ const validationSettings = {
   inputErrorClass: 'popup__form_type_error',
   errorClass: 'popup__error_visible'
 };
-//вызываем функицю валидации
-enableValidation(validationSettings);
-
-
-
-
-
-
-
 
 
