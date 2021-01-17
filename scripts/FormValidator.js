@@ -1,18 +1,7 @@
-export default class FormValidator {
-  constructor(settings, input){
-    this._settings = settings;
-    this._input = input;
-  }
-  _showError() {
-    const error = form.querySelector(`#${input.id}-error`);
-    input.classList.add(settings.inputErrorClass);
-    error.textContent = input.validationMessage;
-    error.classList.add(settings.errorClass);
-  }
-}
+
 
 //даем исходную конфигурацию
-const settings = {
+const validationSettings = {
   formSelector: '.popup__form',
   inputSelector: '.popup__form-text',
   submitButtonSelector: '.popup__form-button',
@@ -21,6 +10,13 @@ const settings = {
   errorClass: 'popup__error_visible'
 };
 
+
+export default class FormValidator {
+  constructor(settings, input){
+    this._settings = settings;
+    this._input = input;
+  }
+}
 
 
 /*

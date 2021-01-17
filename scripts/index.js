@@ -203,5 +203,5 @@ const settings = {
   errorClass: 'popup__error_visible'
 };
 
-const FormPlaceValidator = new FormValidator(settings, '.popup__form-container')._showError();
-const FormNameValidator = new FormValidator(settings, '.profile__info')._showError();
+const FormPlaceValidator = new FormValidator(settings, '.popup__form-container').enableValidation();
+const FormNameValidator = new FormValidator(settings, '.profile__info').enableValidation();

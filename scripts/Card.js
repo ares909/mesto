@@ -53,8 +53,3 @@ export default class Card {
     return this._element;
   }
 }
-//initialCards.forEach((item) => {
-  //const card = new Card(item);
-  //const cardElement = card._generateCard();
-  //document.querySelector('.elements').append(cardElement)
-//});
