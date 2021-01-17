@@ -86,3 +86,5 @@ function resetSubmitButton(settings) {
 }
 
 
+//вызываем функицю валидации
+enableValidation(validationSettings);

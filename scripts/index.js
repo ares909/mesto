@@ -49,11 +49,10 @@ const formCard = document.forms.formCard;
 const imagePopupPicture = document.querySelector('#popup-image');
 const imagePopupDescription = document.querySelector('#description');
 
-//вызываем функицю валидации
-enableValidation(validationSettings);
+
 
 //Шаблон для создания карточек
-const createCards = ({ name, link }) => {
+/*const createCards = ({ name, link }) => {
   const element = elementTemplate.cloneNode(true);
   const elementImage = element.querySelector('.element__image');
   const elementText = element.querySelector('.element__text');
@@ -87,7 +86,7 @@ const uploadCards = () => {
   elementContainer.append(...arrayCards);
 }
 uploadCards();
-
+*/
 //открыть попап
 const openPopup = (popups) => {
   popups.classList.add('popup_opened');
@@ -144,26 +143,6 @@ const closeImage = () => {
   closePopup(popupImage);
 }
 
-//Загрузка новой карточки
-const formPlaceSubmitHandler = (evt) => {
-  evt.preventDefault();
-  const cardPlace = placeInput.value;
-  const cardImage = imageInput.value;
-  const element = createCards({ name: cardPlace, link: cardImage });
-  elementContainer.prepend(element);
-  closeFormPlace();
-}
-
-
-
-//Привязываем кнопки к функциям
-closeFormNameButton.addEventListener('click', closeFormName);
-closeFormPlaceButton.addEventListener('click', closeFormPlace);
-closeImageButton.addEventListener('click', closeImage);
-editButton.addEventListener('click', openFormName);
-addButton.addEventListener('click', openFormPlace);
-formName.addEventListener('submit', formNameSubmitHandler);
-formPlace.addEventListener('submit', formPlaceSubmitHandler);
 
 //закрываем попапы кликом на оверлей
 popups.forEach((item) => {
@@ -182,6 +161,34 @@ function closeByEscButton(evt) {
   }
 }
 
+//импортируем класс создания карточки
+import Card from './Card.js';
+
+//наполняем все карточки данными из массива и выводим
+initialCards.forEach((item) => {
+  const card = new Card(item)._generateCard();
+  elementContainer.append(card)
+});
+
+//Загрузка новой карточки
+const formPlaceSubmitHandler = (evt) => {
+  evt.preventDefault();
+  const name = placeInput.value;
+  const link = imageInput.value;
+  const item = { name, link }
+  const card = new Card(item)._generateCard();
+  elementContainer.prepend(card);
+  closeFormPlace();
+}
+
+//Привязываем кнопки к функциям
+closeFormNameButton.addEventListener('click', closeFormName);
+closeFormPlaceButton.addEventListener('click', closeFormPlace);
+closeImageButton.addEventListener('click', closeImage);
+editButton.addEventListener('click', openFormName);
+addButton.addEventListener('click', openFormPlace);
+formName.addEventListener('submit', formNameSubmitHandler);
+formPlace.addEventListener('submit', formPlaceSubmitHandler);
 
 
 
