@@ -1,10 +1,36 @@
+export default class FormValidator {
+  constructor(settings, input){
+    this._settings = settings;
+    this._input = input;
+  }
+  _showError() {
+    const error = form.querySelector(`#${input.id}-error`);
+    input.classList.add(settings.inputErrorClass);
+    error.textContent = input.validationMessage;
+    error.classList.add(settings.errorClass);
+  }
+}
+
+//даем исходную конфигурацию
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__form-text',
+  submitButtonSelector: '.popup__form-button',
+  inactiveButtonClass: 'popup__form-button_disabled',
+  inputErrorClass: 'popup__form_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+
+
+/*
 
 //показываем ошибку валидации
 function showError(form, input, settings) {
-  const error = form.querySelector(`#${input.id}-error`);
-  input.classList.add(settings.inputErrorClass);
-  error.textContent = input.validationMessage;
-  error.classList.add(settings.errorClass);
+const error = form.querySelector(`#${input.id}-error`);
+input.classList.add(settings.inputErrorClass);
+error.textContent = input.validationMessage;
+error.classList.add(settings.errorClass);
 }
 //скрываем ошибку валидации
 function hideError(form, input, settings) {
@@ -58,15 +84,7 @@ function enableValidation(settings) {
     changeSubmitButton(submitButton, form.checkValidity(), settings);
   })
 }
-//даем исходную конфигурацию
-const validationSettings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__form-text',
-  submitButtonSelector: '.popup__form-button',
-  inactiveButtonClass: 'popup__form-button_disabled',
-  inputErrorClass: 'popup__form_type_error',
-  errorClass: 'popup__error_visible'
-};
+
 //убираем ошибку, если закрыли форму, не исправив ее
 
 function resetErrorMessage(form, settings) {
@@ -88,3 +106,4 @@ function resetSubmitButton(settings) {
 
 //вызываем функицю валидации
 enableValidation(validationSettings);
+*/
