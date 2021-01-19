@@ -11,14 +11,79 @@ const validationSettings = {
 };
 
 
-export default class FormValidator {
-  constructor(settings, input){
-    this._settings = settings;
-    this._input = input;
+class FormValidator {
+  constructor(settings, form) {
+    this._form = form;
+    this._formSelector = settings.formSelector;
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
+    this._inactiveButtonClass = settings.inactiveButtonClass;
+    this._inputErrorClass = settings.inputErrorClass;
+    this._errorClass = settings.errorClass
+  }
+  _showError() {
+  const error = document.querySelector(`#${this._input.id}-error`);
+  this._input.classList.add(this._inputErrorClass);
+  error.textContent = this._input.validationMessage;
+  error.classList.add(this._errorClass);
+}
+//скрываем ошибку валидации
+_hideError() {
+  const error = document.querySelector(`#${this._input.id}-error`);
+  this._input.classList.remove(this._inputErrorClass);
+  error.textContent = '';
+  error.classList.remove(this._errorClass);
+}
+//условие валидации
+_checkInputValidity(input) {
+  this._input = input;
+  if (!this._input.validity.valid) {
+    this._showError();
+  }
+  else {
+    this._hideError();
+  }
+}
+//активируем/деактивируем кнопку
+_changeSubmitButton(button, validation) {
+   if (!validation) {
+    button.classList.add(this._inactiveButtonClass);
+    button.disabled = true;
+  }
+  else {
+    button.classList.remove(this._inactiveButtonClass);
+    button.disabled = false;
   }
 }
 
+//вешаем обработчики событий на все инпуты
+_setEventListeners() {
+  this._inputList = document.querySelectorAll(this._inputSelector);
+  const submitButton = document.querySelector(this._submitButtonSelector);
+  this._inputList.forEach((input) => {
+    //resetErrorMessage(form, input, settings);
+    input.addEventListener('input', () => {
+      this._checkInputValidity(input);
+      this._changeSubmitButton(submitButton, this._input.checkValidity())
+    });
+  });
+}
+//вешаем обработчики событий на все формы
+enableValidation() {
+  const formList = document.querySelectorAll(this._formSelector);
+  formList.forEach(form => {
+    this._setEventListeners();
+    form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    const submitButton = form.querySelector(this._submitButtonSelector);
+    this._changeSubmitButton(submitButton, form.checkValidity());
+  })
+}
 
+}
+
+export {FormValidator, validationSettings};
 /*
 
 //показываем ошибку валидации

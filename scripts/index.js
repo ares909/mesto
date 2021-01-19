@@ -163,12 +163,15 @@ function closeByEscButton(evt) {
 
 //импортируем класс создания карточки
 import Card from './Card.js';
+const addNewCard = (item) => {
+  const card = new Card(item, '#elementTemplate')._generateCard();
+  elementContainer.prepend(card)
+}
 
 //наполняем все карточки данными из массива и выводим
-initialCards.forEach((item) => {
-  const card = new Card(item, '#elementTemplate')._generateCard();
-  elementContainer.append(card)
-});
+initialCards.reverse().forEach((item) => {
+  addNewCard(item);
+ });
 
 //Загрузка новой карточки
 const formPlaceSubmitHandler = (evt) => {
@@ -176,8 +179,7 @@ const formPlaceSubmitHandler = (evt) => {
   const name = placeInput.value;
   const link = imageInput.value;
   const item = { name, link }
-  const card = new Card(item, '#elementTemplate')._generateCard();
-  elementContainer.prepend(card);
+  addNewCard(item);
   closeFormPlace();
 }
 
@@ -192,16 +194,7 @@ formPlace.addEventListener('submit', formPlaceSubmitHandler);
 
 
 
-import FormValidator from './FormValidator.js'
-//даем исходную конфигурацию
-const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__form-text',
-  submitButtonSelector: '.popup__form-button',
-  inactiveButtonClass: 'popup__form-button_disabled',
-  inputErrorClass: 'popup__form_type_error',
-  errorClass: 'popup__error_visible'
-};
+import {FormValidator, validationSettings} from './FormValidator.js'
 
-const FormPlaceValidator = new FormValidator(settings, '.popup__form-container').enableValidation();
-const FormNameValidator = new FormValidator(settings, '.profile__info').enableValidation();
+const FormPlaceValidator = new FormValidator(validationSettings, '.popup__form-container').enableValidation();
+const FormNameValidator = new FormValidator(validationSettings, '.profile__info').enableValidation();
