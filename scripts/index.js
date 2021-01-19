@@ -107,8 +107,10 @@ const openFormName = () => {
   openPopup(formName);
   nameInput.value = name.textContent;
   professionInput.value = profession.textContent;
-  resetErrorMessage(formName, validationSettings);
-  resetSubmitButton(validationSettings);
+  //resetErrorMessage(formName, validationSettings);
+
+  //const resetValidation = new FormValidator(validationSettings, '.profile__info').resetErrorMessage();
+  //resetSubmitButton(validationSettings);
   //enableValidation(validationSettings);
 }
 
@@ -129,8 +131,9 @@ const formNameSubmitHandler = (evt) => {
 //открыть форму с местом
 const openFormPlace = () => {
   openPopup(formPlace);
-  resetErrorMessage(formPlace, validationSettings);
-  resetSubmitButton(validationSettings);
+  //resetErrorMessage(formPlace, validationSettings);
+
+  //formPlace.enableValidation();
   formCard.reset();
 }
 
@@ -196,5 +199,9 @@ formPlace.addEventListener('submit', formPlaceSubmitHandler);
 
 import {FormValidator, validationSettings} from './FormValidator.js'
 
-const FormPlaceValidator = new FormValidator(validationSettings, '.popup__form-container').enableValidation();
-const FormNameValidator = new FormValidator(validationSettings, '.profile__info').enableValidation();
+
+const formNameValidator = new FormValidator(validationSettings, '#form-name').enableValidation();
+const formPlaceValidator = new FormValidator(validationSettings, '#form-place').enableValidation();
+
+//const FormPlaceValidator = new FormValidator(validationSettings, '.popup__form-container').enableValidation();
+//const FormNameValidator = new FormValidator(validationSettings, '.profile__info').enableValidation();

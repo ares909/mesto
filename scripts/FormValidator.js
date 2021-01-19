@@ -22,69 +22,81 @@ class FormValidator {
     this._errorClass = settings.errorClass
   }
   _showError() {
-  const error = document.querySelector(`#${this._input.id}-error`);
-  this._input.classList.add(this._inputErrorClass);
-  error.textContent = this._input.validationMessage;
-  error.classList.add(this._errorClass);
-}
-//скрываем ошибку валидации
-_hideError() {
-  const error = document.querySelector(`#${this._input.id}-error`);
-  this._input.classList.remove(this._inputErrorClass);
-  error.textContent = '';
-  error.classList.remove(this._errorClass);
-}
-//условие валидации
-_checkInputValidity(input) {
-  this._input = input;
-  if (!this._input.validity.valid) {
-    this._showError();
+    const error = this._form.querySelector(`#${this._input.id}-error`);
+    this._input.classList.add(this._inputErrorClass);
+    error.textContent = this._input.validationMessage;
+    error.classList.add(this._errorClass);
   }
-  else {
-    this._hideError();
+  //скрываем ошибку валидации
+  _hideError() {
+    const error = this._form.querySelector(`#${this._input.id}-error`);
+    this._input.classList.remove(this._inputErrorClass);
+    error.textContent = '';
+    error.classList.remove(this._errorClass);
   }
-}
-//активируем/деактивируем кнопку
-_changeSubmitButton(button, validation) {
-   if (!validation) {
-    button.classList.add(this._inactiveButtonClass);
-    button.disabled = true;
+  //условие валидации
+  _checkInputValidity(input) {
+    this._input = input;
+    if (!this._input.validity.valid) {
+      this._showError();
+    }
+    else {
+      this._hideError();
+    }
   }
-  else {
-    button.classList.remove(this._inactiveButtonClass);
-    button.disabled = false;
+  //активируем/деактивируем кнопку
+  _changeSubmitButton(validation) {
+    this._button = this._form.querySelector(this._submitButtonSelector);
+    if (!validation) {
+      this._button.classList.add(this._inactiveButtonClass);
+      this._button.disabled = true;
+    }
+    else {
+      this._button.classList.remove(this._inactiveButtonClass);
+      this._button.disabled = false;
+    }
   }
+
+  //вешаем обработчики событий на все инпуты
+  _setEventListeners() {
+    this._inputList = document.querySelectorAll(this._inputSelector);
+    this._inputList.forEach((input) => {
+      input.addEventListener('input', () => {
+        this._checkInputValidity(input);
+        this._changeSubmitButton(this._form.checkValidity())
+      });
+    });
+  }
+  //resetErrorMessage() {
+    //this._inputList = document.querySelectorAll(this._inputSelector);
+    //this._inputList.forEach((input) => {
+     // input._hideError();
+   // })
+ // }
+  //вешаем обработчики событий на все формы
+  enableValidation() {
+    const formList = document.querySelectorAll(this._formSelector);
+    formList.forEach(form => {
+      this._setEventListeners();
+      form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+      });
+      this._changeSubmitButton(form.checkValidity());
+    })
+  }
+
 }
 
-//вешаем обработчики событий на все инпуты
-_setEventListeners() {
-  this._inputList = document.querySelectorAll(this._inputSelector);
-  const submitButton = document.querySelector(this._submitButtonSelector);
-  this._inputList.forEach((input) => {
-    //resetErrorMessage(form, input, settings);
-    input.addEventListener('input', () => {
-      this._checkInputValidity(input);
-      this._changeSubmitButton(submitButton, this._input.checkValidity())
-    });
+export { FormValidator, validationSettings };
+
+
+/*
+function resetErrorMessage(form, settings) {
+  const inputList = form.querySelectorAll(settings.inputSelector);
+  inputList.forEach((input) => {
+  hideError(form, input, settings)
   });
 }
-//вешаем обработчики событий на все формы
-enableValidation() {
-  const formList = document.querySelectorAll(this._formSelector);
-  formList.forEach(form => {
-    this._setEventListeners();
-    form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-    const submitButton = form.querySelector(this._submitButtonSelector);
-    this._changeSubmitButton(submitButton, form.checkValidity());
-  })
-}
-
-}
-
-export {FormValidator, validationSettings};
-/*
 
 //показываем ошибку валидации
 function showError(form, input, settings) {
