@@ -2,12 +2,19 @@
 
 //создадим класс для карточки
 export default class Card {
-  constructor(data, cardSelector) {
+  _popupImage = document.querySelector('#popup_image-container');
+  _imagePopupPicture = document.querySelector('#popup-image');
+  _imagePopupDescription = document.querySelector('#description');
+
+
+  //this._likeButton = this._element.querySelector('.element__like');
+  constructor(data, cardSelector, openPopup) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
-    //scr alt для картиник???
-  }
+    this._openPopup = openPopup;
+
+   }
   //добавить шаблон
   _getTemplate() {
     const cardElement = document.querySelector(this._cardSelector).content.querySelector('.element').cloneNode(true);
@@ -15,19 +22,22 @@ export default class Card {
   }
   //добавим в класс все слушатели для карточки
   _setEventListeners(){
-    this._element.querySelector('.element__like').addEventListener('click',() => {
+    this._likeButton = this._element.querySelector('.element__like');
+    this._deleteButton = this._element.querySelector('.element__trash');
+    this._cardImage = this._element.querySelector('.element__image');
+    this._likeButton.addEventListener('click',() => {
       this._likeCard();
     })
-    this._element.querySelector('.element__trash').addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._deleteCard();
     })
-    this._element.querySelector('.element__image').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
      this._openCardPopup();
     })
   }
   //ставим лайк
   _likeCard(){
-    this._element.querySelector('.element__like').classList.toggle('element__like_active');
+    this._likeButton.classList.toggle('element__like_active');
   }
   //удаляем карточку
   _deleteCard() {
@@ -35,21 +45,21 @@ export default class Card {
     this._element = '';
   }
   //добавим попап с подписью
- _openCardPopup(){
-    document.querySelector('#popup_image-container').classList.add('popup_opened');
-    document.querySelector('#popup-image').src = this._link;
-    document.querySelector('#popup-image').alt = this._name;
-    document.querySelector('#description').textContent = this._name;
-    ///добавь тут константы!!!!
+  openPopup = () => {
+    //this._popupImage.classList.add('popup_opened');
+    this._imagePopupPicture.src = this._link;
+    this._imagePopupPicture.alt = this._name;
+    this._imagePopupDescription.textContent = this._name;
+
   }
+
   //создать карточку
   _generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._element.querySelector('.element__text').textContent = this._name;
-    //this._element.querySelector('.element__image').src = this_.link; сюда пропиши альты для картинок
     return this._element;
   }
 }

@@ -1,4 +1,9 @@
 
+//импортируем классы
+import Card from './Card.js';
+import {FormValidator, validationSettings} from './FormValidator.js'
+
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -26,7 +31,6 @@ const initialCards = [
   }
 ];
 
-
 const editButton = document.querySelector('.profile__editbutton');
 const closeFormNameButton = document.querySelector('#close_card-name');
 const closeFormPlaceButton = document.querySelector('#close_card-place');
@@ -42,51 +46,30 @@ const imageInput = document.querySelector('#image-input');
 const nameInput = document.querySelector('#name-input');
 const professionInput = document.querySelector('#profession-input');
 const elementContainer = document.querySelector('.elements');
-const elementTemplate = document.querySelector('#elementTemplate').content;
 const popupImage = document.querySelector('#popup_image-container');
-const formProfile = document.forms.formProfile;
 const formCard = document.forms.formCard;
-const imagePopupPicture = document.querySelector('#popup-image');
-const imagePopupDescription = document.querySelector('#description');
 
+//создаем карточку через класс
+const addNewCard = (item) => {
+  const card = new Card(item, '#elementTemplate', openPopup)._generateCard();
+  elementContainer.prepend(card)
+}
+//наполняем все карточки данными из массива и выводим
+initialCards.reverse().forEach((item) => {
+  addNewCard(item);
+ });
 
-
-//Шаблон для создания карточек
-/*const createCards = ({ name, link }) => {
-  const element = elementTemplate.cloneNode(true);
-  const elementImage = element.querySelector('.element__image');
-  const elementText = element.querySelector('.element__text');
-  elementImage.src = link;
-  elementImage.alt = name;
-  elementText.textContent = name;
-  const likeButton = element.querySelector('.element__like');
-  //ставим лайк
-  likeButton.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('element__like_active');
-  });
-
-  //удаляем карточку
-  const deleteButton = element.querySelector('.element__trash');
-  deleteButton.addEventListener('click', function (evt) {
-    evt.target.closest('.element').remove();
-  });
-  //попап с картинкой
-  elementImage.addEventListener('click', function () {
-    openPopup(popupImage);
-    imagePopupPicture.src = link;
-    imagePopupPicture.alt = name;
-    imagePopupDescription.textContent = name;
-  });
-  return element;
+//Загрузка новой карточки
+const formPlaceSubmitHandler = (evt) => {
+  evt.preventDefault();
+  const name = placeInput.value;
+  const link = imageInput.value;
+  const item = { name, link }
+  addNewCard(item);
+  closeFormPlace();
 }
 
-//Загрузка первоначальных карточек
-const uploadCards = () => {
-  const arrayCards = initialCards.map(createCards);
-  elementContainer.append(...arrayCards);
-}
-uploadCards();
-*/
+
 //открыть попап
 const openPopup = (popups) => {
   popups.classList.add('popup_opened');
@@ -98,7 +81,7 @@ const closePopup = (popups) => {
   popups.classList.remove('popup_opened');
   //удаляем обработчик нажатия
   document.removeEventListener('keydown', closeByEscButton);
-  //функция сброса ошибки
+
 
 }
 
@@ -107,11 +90,9 @@ const openFormName = () => {
   openPopup(formName);
   nameInput.value = name.textContent;
   professionInput.value = profession.textContent;
-  //resetErrorMessage(formName, validationSettings);
-
-  //const resetValidation = new FormValidator(validationSettings, '.profile__info').resetErrorMessage();
-  //resetSubmitButton(validationSettings);
-  //enableValidation(validationSettings);
+  const formNameValidator = new FormValidator(validationSettings, formName).enableValidation();
+   //функция сброса ошибки
+  const validationReset = new FormValidator(validationSettings, formName).resetValidation(formName);
 }
 
 //закрыть форму с именем
@@ -131,9 +112,9 @@ const formNameSubmitHandler = (evt) => {
 //открыть форму с местом
 const openFormPlace = () => {
   openPopup(formPlace);
-  //resetErrorMessage(formPlace, validationSettings);
-
-  //formPlace.enableValidation();
+  const formPlaceValidator = new FormValidator(validationSettings, formPlace).enableValidation();
+   //функция сброса ошибки
+  const validationReset = new FormValidator(validationSettings, formPlace).resetValidation(formPlace);
   formCard.reset();
 }
 
@@ -164,27 +145,6 @@ function closeByEscButton(evt) {
   }
 }
 
-//импортируем класс создания карточки
-import Card from './Card.js';
-const addNewCard = (item) => {
-  const card = new Card(item, '#elementTemplate')._generateCard();
-  elementContainer.prepend(card)
-}
-
-//наполняем все карточки данными из массива и выводим
-initialCards.reverse().forEach((item) => {
-  addNewCard(item);
- });
-
-//Загрузка новой карточки
-const formPlaceSubmitHandler = (evt) => {
-  evt.preventDefault();
-  const name = placeInput.value;
-  const link = imageInput.value;
-  const item = { name, link }
-  addNewCard(item);
-  closeFormPlace();
-}
 
 //Привязываем кнопки к функциям
 closeFormNameButton.addEventListener('click', closeFormName);
@@ -197,11 +157,8 @@ formPlace.addEventListener('submit', formPlaceSubmitHandler);
 
 
 
-import {FormValidator, validationSettings} from './FormValidator.js'
 
 
-const formNameValidator = new FormValidator(validationSettings, '#form-name').enableValidation();
-const formPlaceValidator = new FormValidator(validationSettings, '#form-place').enableValidation();
 
-//const FormPlaceValidator = new FormValidator(validationSettings, '.popup__form-container').enableValidation();
-//const FormNameValidator = new FormValidator(validationSettings, '.profile__info').enableValidation();
+
+

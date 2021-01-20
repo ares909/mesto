@@ -21,69 +21,72 @@ class FormValidator {
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass
   }
-  _showError() {
-    const error = this._form.querySelector(`#${this._input.id}-error`);
-    this._input.classList.add(this._inputErrorClass);
-    error.textContent = this._input.validationMessage;
+  _showError = (form, input) => {
+    const error = form.querySelector(`#${input.id}-error`);
+    input.classList.add(this._inputErrorClass);
+    error.textContent = input.validationMessage;
     error.classList.add(this._errorClass);
   }
   //скрываем ошибку валидации
-  _hideError() {
-    const error = this._form.querySelector(`#${this._input.id}-error`);
-    this._input.classList.remove(this._inputErrorClass);
+  _hideError = (form, input) => {
+    const error = form.querySelector(`#${input.id}-error`);
+    input.classList.remove(this._inputErrorClass);
     error.textContent = '';
     error.classList.remove(this._errorClass);
   }
   //условие валидации
-  _checkInputValidity(input) {
-    this._input = input;
-    if (!this._input.validity.valid) {
-      this._showError();
+  _checkInputValidity = (form, input) => {
+    if (!input.validity.valid) {
+      this._showError(form, input);
     }
     else {
-      this._hideError();
+      this._hideError(form, input);
     }
   }
   //активируем/деактивируем кнопку
-  _changeSubmitButton(validation) {
-    this._button = this._form.querySelector(this._submitButtonSelector);
+  _changeSubmitButton = (button, validation) => {
     if (!validation) {
-      this._button.classList.add(this._inactiveButtonClass);
-      this._button.disabled = true;
+      button.classList.add(this._inactiveButtonClass);
+      button.disabled = true;
     }
     else {
-      this._button.classList.remove(this._inactiveButtonClass);
-      this._button.disabled = false;
+      button.classList.remove(this._inactiveButtonClass);
+      button.disabled = false;
     }
   }
 
   //вешаем обработчики событий на все инпуты
-  _setEventListeners() {
-    this._inputList = document.querySelectorAll(this._inputSelector);
-    this._inputList.forEach((input) => {
+  _setEventListeners = (form) => {
+    const inputList = form.querySelectorAll(this._inputSelector);
+    const submitButton = form.querySelector(this._submitButtonSelector);
+    inputList.forEach((input) => {
+      //resetErrorMessage(form, input, settings);
       input.addEventListener('input', () => {
-        this._checkInputValidity(input);
-        this._changeSubmitButton(this._form.checkValidity())
+        this._checkInputValidity(form, input);
+        this._changeSubmitButton(submitButton, form.checkValidity())
       });
     });
   }
-  //resetErrorMessage() {
-    //this._inputList = document.querySelectorAll(this._inputSelector);
-    //this._inputList.forEach((input) => {
-     // input._hideError();
-   // })
- // }
+  resetValidation(form) {
+    const inputList = form.querySelectorAll(this._inputSelector);
+    inputList.forEach((input) => {
+      this._hideError(form, input)
+    });
+  }
   //вешаем обработчики событий на все формы
-  enableValidation() {
+  enableValidation = () => {
     const formList = document.querySelectorAll(this._formSelector);
     formList.forEach(form => {
-      this._setEventListeners();
+      this._setEventListeners(form);
       form.addEventListener('submit', (evt) => {
         evt.preventDefault();
       });
-      this._changeSubmitButton(form.checkValidity());
+      const submitButton = form.querySelector(this._submitButtonSelector);
+      this._changeSubmitButton(submitButton, form.checkValidity());
     })
   }
+
+  //убираем ошибку, если закрыли форму, не исправив ее
 
 }
 
