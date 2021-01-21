@@ -1,4 +1,5 @@
 .popup {
+  display: flex;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
@@ -9,5 +10,7 @@
   left: 0;
   z-index: 1;
   font-family: 'Inter', sans-serif;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 1s ease, visibility 0s ease 1s;
 }
