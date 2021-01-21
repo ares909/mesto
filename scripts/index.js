@@ -49,9 +49,23 @@ const elementContainer = document.querySelector('.elements');
 const popupImage = document.querySelector('#popup_image-container');
 const formCard = document.forms.formCard;
 
+//открыть попап
+const openPopup = (popups) => {
+  popups.classList.add('popup_opened');
+  //вешаем на весь документ обработчик нажатия
+  document.addEventListener('keydown', closeByEscButton);
+}
+//закрыть попап
+const closePopup = (popups) => {
+  popups.classList.remove('popup_opened');
+  //удаляем обработчик нажатия
+  document.removeEventListener('keydown', closeByEscButton);
+}
+
+
 //создаем карточку через класс
 const addNewCard = (item) => {
-  const card = new Card(item, '#elementTemplate', openPopup)._generateCard();
+  const card = new Card(item, '#elementTemplate')._generateCard();
   elementContainer.prepend(card)
 }
 //наполняем все карточки данными из массива и выводим
@@ -67,22 +81,6 @@ const formPlaceSubmitHandler = (evt) => {
   const item = { name, link }
   addNewCard(item);
   closeFormPlace();
-}
-
-
-//открыть попап
-const openPopup = (popups) => {
-  popups.classList.add('popup_opened');
-  //вешаем на весь документ обработчик нажатия
-  document.addEventListener('keydown', closeByEscButton);
-}
-//закрыть попап
-const closePopup = (popups) => {
-  popups.classList.remove('popup_opened');
-  //удаляем обработчик нажатия
-  document.removeEventListener('keydown', closeByEscButton);
-
-
 }
 
 //открыть форму с именем

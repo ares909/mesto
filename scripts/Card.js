@@ -45,14 +45,18 @@ export default class Card {
     this._element = '';
   }
   //добавим попап с подписью
-  openPopup = () => {
-    //this._popupImage.classList.add('popup_opened');
+  _openCardPopup () {
+    this._popupImage.classList.add('popup_opened');
     this._imagePopupPicture.src = this._link;
     this._imagePopupPicture.alt = this._name;
     this._imagePopupDescription.textContent = this._name;
-
+    document.addEventListener('keydown', this._closeByEscButton);
   }
-
+ _closeByEscButton = (evt) => {
+    if (evt.key === 'Escape') {
+      this._popupImage.classList.remove('popup_opened');
+    }
+  }
   //создать карточку
   _generateCard() {
     this._element = this._getTemplate();
