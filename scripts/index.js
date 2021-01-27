@@ -102,8 +102,16 @@ const formPlaceSubmitHandler = (evt) => {
   evt.preventDefault();
   const name = placeInput.value;
   const link = imageInput.value;
-  const item = { name, link };
-  addItem(item);
+  const item = [{ name, link }];
+  const newCard = new Section({
+    items: item,
+    renderer: (item) => {
+      const card = new Card(item, "#elementTemplate", openImagePopup)._generateCard();
+      cardList.addItem(card);
+    },
+  },
+  elementContainer);
+  newCard.renderItems();
   closeFormPlace();
 };
 
