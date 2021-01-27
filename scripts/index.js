@@ -114,7 +114,7 @@ const formPlaceSubmitHandler = (evt) => {
   newCard.renderItems();
   closeFormPlace();
 };
-
+//попробуй это оптимизировать!
 //открыть форму с именем
 const openFormName = () => {
   openPopup(formName);
