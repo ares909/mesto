@@ -1,6 +1,7 @@
 //импортируем классы
-import Card from "./Card.js";
-import { FormValidator, validationSettings } from "./FormValidator.js";
+import Section from "../components/Section.js";
+import Card from "../components/Card.js";
+import { FormValidator, validationSettings } from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -73,18 +74,28 @@ const openImagePopup = () => {
 };
 
 //создаем карточку через класс
-const addNewCard = (item) => {
-  const card = new Card(
-    item,
-    "#elementTemplate",
-    openImagePopup
-  )._generateCard();
-  elementContainer.prepend(card);
-};
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, "#elementTemplate", openImagePopup)._generateCard();
+    cardList.addItem(card);
+  },
+},
+elementContainer);
+
+cardList.renderItems();
+// const addNewCard = (item) => {
+//   const card = new Card(
+//     item,
+//     "#elementTemplate",
+//     openImagePopup
+//   )._generateCard();
+//   elementContainer.prepend(card);
+// };
 //наполняем все карточки данными из массива и выводим
-initialCards.reverse().forEach((item) => {
-  addNewCard(item);
-});
+// initialCards.reverse().forEach((item) => {
+//   addNewCard(item);
+// });
 
 //Загрузка новой карточки
 const formPlaceSubmitHandler = (evt) => {
@@ -92,7 +103,7 @@ const formPlaceSubmitHandler = (evt) => {
   const name = placeInput.value;
   const link = imageInput.value;
   const item = { name, link };
-  addNewCard(item);
+  addItem(item);
   closeFormPlace();
 };
 

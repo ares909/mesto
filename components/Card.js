@@ -37,7 +37,7 @@ export default class Card {
       this._imagePopupDescription.textContent = this._name;
     });
   }
-  //ставим лайк
+  // ставим лайк
   _likeCard() {
     this._likeButton.classList.toggle("element__like_active");
   }
