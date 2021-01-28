@@ -2,6 +2,9 @@
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import { FormValidator, validationSettings } from "../components/FormValidator.js";
+import Popup from '../components/Popup.js';
+
+
 
 const initialCards = [
   {
@@ -55,18 +58,27 @@ const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
 const formNameValidator = new FormValidator(validationSettings, formName);
 const formPlaceValidator = new FormValidator(validationSettings, formPlace);
+export {popups};
 
 //открыть попап
-const openPopup = (popups) => {
-  popups.classList.add("popup_opened");
-  //вешаем на весь документ обработчик нажатия
-  document.addEventListener("keydown", closeByEscButton);
-};
+const openPopup = (item) => {
+  const form = new Popup(item).open()
+}
+
+
+// const openPopup = (popups) => {
+//   popups.classList.add("popup_opened");
+//   //вешаем на весь документ обработчик нажатия
+//   document.addEventListener("keydown", closeByEscButton);
+// };
+
+
+
 //закрыть попап
-const closePopup = (popups) => {
-  popups.classList.remove("popup_opened");
+const closePopup = (item) => {
+  const form = new Popup(item).close();
   //удаляем обработчик нажатия
-  document.removeEventListener("keydown", closeByEscButton);
+  //document.removeEventListener("keydown", closeByEscButton);
 };
 //открываем попап картинки
 const openImagePopup = () => {
@@ -115,8 +127,10 @@ const formPlaceSubmitHandler = (evt) => {
   closeFormPlace();
 };
 //попробуй это оптимизировать!
-//открыть форму с именем
+
+// с именем
 const openFormName = () => {
+
   openPopup(formName);
   nameInput.value = name.textContent;
   professionInput.value = profession.textContent;
