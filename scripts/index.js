@@ -180,17 +180,17 @@ popups.forEach((item) => {
 });
 
 //закрываем формы нажатием Esc
-function closeByEscButton(evt) {
-  if (evt.key === "Escape") {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
-  }
-}
+// function closeByEscButton(evt) {
+//   if (evt.key === "Escape") {
+//     const popupOpened = document.querySelector(".popup_opened");
+//     closePopup(popupOpened);
+//   }
+// }
 
 //Привязываем кнопки к функциям
-closeFormNameButton.addEventListener("click", closeFormName);
-closeFormPlaceButton.addEventListener("click", closeFormPlace);
-closeImageButton.addEventListener("click", closeImage);
+// closeFormNameButton.addEventListener("click", closeFormName);
+// closeFormPlaceButton.addEventListener("click", closeFormPlace);
+// closeImageButton.addEventListener("click", closeImage);
 editButton.addEventListener("click", openFormName);
 addButton.addEventListener("click", openFormPlace);
 formName.addEventListener("submit", formNameSubmitHandler);
