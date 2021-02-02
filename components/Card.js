@@ -19,7 +19,7 @@ export default class Card {
     return cardElement;
   }
   //добавим в класс все слушатели для карточки
-  _setEventListeners() {
+  setEventListeners() {
     this._likeButton = this._element.querySelector(".element__like");
     this._deleteButton = this._element.querySelector(".element__trash");
     this._cardImage = this._element.querySelector(".element__image");
@@ -48,7 +48,7 @@ export default class Card {
   //создать карточку
   generateCard() {
     this._element = this._getTemplate();
-    this._setEventListeners();
+    this.setEventListeners();
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector(".element__text").textContent = this._name;

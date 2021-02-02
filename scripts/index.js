@@ -4,7 +4,7 @@ import Card from "../components/Card.js";
 import { FormValidator, validationSettings } from "../components/FormValidator.js";
 import Popup from '../components/Popup.js';
 import PopupWithImage from "../components/PopupWithImage.js";
-
+import PopupWithForm from "../components/PopupWithForm.js";
 
 
 const initialCards = [
@@ -80,9 +80,6 @@ const closePopup = (item) => {
 //открываем попап картинки
 //
 const popupWithImage = new PopupWithImage(popupImage);
-const handleCardClick = () => {
-  // popupWithImage(popupImage).open(item.name, item.link);
-};
 
 //создаем карточку через класс
 const cardList = new Section({
@@ -98,6 +95,7 @@ cardList.renderItems();
 
 
 //Загрузка новой карточки
+
 const formPlaceSubmitHandler = (evt) => {
   evt.preventDefault();
   const name = placeInput.value;
@@ -133,12 +131,21 @@ const closeFormName = () => {
 };
 
 //сохранить форму с именем
-const formNameSubmitHandler = (evt) => {
-  evt.preventDefault();
-  name.textContent = nameInput.value;
-  profession.textContent = professionInput.value;
-  closeFormName();
-};
+const formWithName = new PopupWithForm({
+  popupSelector: formName,
+  handleFormSubmit: (dataList) => {
+
+    formWithName.close()
+  }
+})
+
+formWithName.setEventListeners()
+// const formNameSubmitHandler = (evt) => {
+//   evt.preventDefault();
+//   name.textContent = nameInput.value;
+//   profession.textContent = professionInput.value;
+//   closeFormName();
+// };
 
 //открыть форму с местом
 const openFormPlace = () => {
@@ -154,9 +161,9 @@ const closeFormPlace = () => {
   closePopup(formPlace);
 };
 //закрыть попап с картинкой
-const closeImage = () => {
-  closePopup(popupImage);
-};
+// const closeImage = () => {
+//   closePopup(popupImage);
+// };
 
 //закрываем попапы кликом на оверлей
 popups.forEach((item) => {
@@ -170,5 +177,5 @@ popups.forEach((item) => {
 
 editButton.addEventListener("click", openFormName);
 addButton.addEventListener("click", openFormPlace);
-formName.addEventListener("submit", formNameSubmitHandler);
-formPlace.addEventListener("submit", formPlaceSubmitHandler);
+// formName.addEventListener("submit", formNameSubmitHandler);
+// formPlace.addEventListener("submit", formPlaceSubmitHandler);
