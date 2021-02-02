@@ -1,15 +1,14 @@
 //создадим класс для карточки
 export default class Card {
-  _popupImage = document.querySelector("#popup_image-container");
-  _imagePopupPicture = document.querySelector("#popup-image");
-  _imagePopupDescription = document.querySelector("#description");
+  // _imagePopupPicture = document.querySelector("#popup-image");
+  // _imagePopupDescription = document.querySelector("#description");
 
   //this._likeButton = this._element.querySelector('.element__like');
-  constructor(data, cardSelector, openPopup) {
+  constructor(data, cardSelector, handleCardClick) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
-    this._openPopup = openPopup;
+    this._handleCardClick = handleCardClick;
   }
   //добавить шаблон
   _getTemplate() {
@@ -31,10 +30,10 @@ export default class Card {
       this._deleteCard();
     });
     this._cardImage.addEventListener("click", () => {
-      this._openPopup();
-      this._imagePopupPicture.src = this._link;
-      this._imagePopupPicture.alt = this._name;
-      this._imagePopupDescription.textContent = this._name;
+      this._handleCardClick();
+      // this._imagePopupPicture.src = this._link;
+      // this._imagePopupPicture.alt = this._name;
+      // this._imagePopupDescription.textContent = this._name;
     });
   }
   // ставим лайк
@@ -47,7 +46,7 @@ export default class Card {
     this._element = "";
   }
   //создать карточку
-  _generateCard() {
+  generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._cardImage.src = this._link;

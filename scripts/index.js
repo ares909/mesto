@@ -3,6 +3,7 @@ import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import { FormValidator, validationSettings } from "../components/FormValidator.js";
 import Popup from '../components/Popup.js';
+import PopupWithImage from "../components/PopupWithImage.js";
 
 
 
@@ -58,6 +59,8 @@ const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
 const formNameValidator = new FormValidator(validationSettings, formName);
 const formPlaceValidator = new FormValidator(validationSettings, formPlace);
+const imagePopupPicture = document.querySelector("#popup-image");
+const imagePopupDescription = document.querySelector("#description");
 export {popups};
 
 //открыть попап
@@ -65,49 +68,34 @@ const openPopup = (item) => {
   const form = new Popup(item).open()
 }
 
-
-// const openPopup = (popups) => {
-//   popups.classList.add("popup_opened");
-//   //вешаем на весь документ обработчик нажатия
-//   document.addEventListener("keydown", closeByEscButton);
-// };
-
-
-
+// const popupWithImage = (item) => {
+//   const newPopup = new PopupWithImage(item).open(name, link)
+// }
 //закрыть попап
 const closePopup = (item) => {
   const form = new Popup(item).close();
   //удаляем обработчик нажатия
-  //document.removeEventListener("keydown", closeByEscButton);
+
 };
 //открываем попап картинки
-const openImagePopup = () => {
-  openPopup(popupImage);
+//
+const popupWithImage = new PopupWithImage(popupImage);
+const handleCardClick = () => {
+  // popupWithImage(popupImage).open(item.name, item.link);
 };
 
 //создаем карточку через класс
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, "#elementTemplate", openImagePopup)._generateCard();
+    const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
     cardList.addItem(card);
   },
 },
 elementContainer);
 
 cardList.renderItems();
-// const addNewCard = (item) => {
-//   const card = new Card(
-//     item,
-//     "#elementTemplate",
-//     openImagePopup
-//   )._generateCard();
-//   elementContainer.prepend(card);
-// };
-//наполняем все карточки данными из массива и выводим
-// initialCards.reverse().forEach((item) => {
-//   addNewCard(item);
-// });
+
 
 //Загрузка новой карточки
 const formPlaceSubmitHandler = (evt) => {
@@ -118,7 +106,7 @@ const formPlaceSubmitHandler = (evt) => {
   const newCard = new Section({
     items: item,
     renderer: (item) => {
-      const card = new Card(item, "#elementTemplate", openImagePopup)._generateCard();
+      const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
       cardList.addItem(card);
     },
   },
@@ -179,18 +167,7 @@ popups.forEach((item) => {
   });
 });
 
-//закрываем формы нажатием Esc
-// function closeByEscButton(evt) {
-//   if (evt.key === "Escape") {
-//     const popupOpened = document.querySelector(".popup_opened");
-//     closePopup(popupOpened);
-//   }
-// }
 
-//Привязываем кнопки к функциям
-// closeFormNameButton.addEventListener("click", closeFormName);
-// closeFormPlaceButton.addEventListener("click", closeFormPlace);
-// closeImageButton.addEventListener("click", closeImage);
 editButton.addEventListener("click", openFormName);
 addButton.addEventListener("click", openFormPlace);
 formName.addEventListener("submit", formNameSubmitHandler);
