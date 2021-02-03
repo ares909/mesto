@@ -5,63 +5,31 @@ import { FormValidator, validationSettings } from "../components/FormValidator.j
 import Popup from '../components/Popup.js';
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
+import { initialCards,
+  editButton,
+  addButton,
+  popups,
+  name,
+  profession,
+  formName,
+  formPlace,
+  placeInput,
+  imageInput,
+  elementContainer,
+  popupImage,
+  formCard,
+  }
+ from "../utils/constants.js"
 
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
-const editButton = document.querySelector(".profile__editbutton");
-const closeFormNameButton = document.querySelector("#close_card-name");
-const closeFormPlaceButton = document.querySelector("#close_card-place");
-const closeImageButton = document.querySelector("#close_image");
-const addButton = document.querySelector(".profile__addbutton");
-const popups = document.querySelectorAll(".popup");
-const name = document.querySelector(".profile__name");
-const profession = document.querySelector(".profile__profession");
-const formName = document.querySelector("#form-name");
-const formPlace = document.querySelector("#form-place");
-const placeInput = document.querySelector("#place-input");
-const imageInput = document.querySelector("#image-input");
-const nameInput = document.querySelector("#name-input");
-const professionInput = document.querySelector("#profession-input");
-const elementContainer = document.querySelector(".elements");
-const popupImage = document.querySelector("#popup_image-container");
-const formCard = document.forms.formCard;
 const formNameValidator = new FormValidator(validationSettings, formName);
 const formPlaceValidator = new FormValidator(validationSettings, formPlace);
-const imagePopupPicture = document.querySelector("#popup-image");
-const imagePopupDescription = document.querySelector("#description");
+
 export {popups};
+const userInfo = new UserInfo({
+  name: name,
+  profession: profession,
+})
 
 //открыть попап
 const openPopup = (item) => {
@@ -95,31 +63,51 @@ cardList.renderItems();
 
 
 //Загрузка новой карточки
+const formWithPlace = new PopupWithForm({
+  popupSelector: formPlace,
+  handleFormSubmit: (item) => {
+    item.name = placeInput.value;
+    item.link = imageInput.value;
+    // item = [{ name, link }];
+    const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
+    cardList.addItem(card);
 
-const formPlaceSubmitHandler = (evt) => {
-  evt.preventDefault();
-  const name = placeInput.value;
-  const link = imageInput.value;
-  const item = [{ name, link }];
-  const newCard = new Section({
-    items: item,
-    renderer: (item) => {
-      const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
-      cardList.addItem(card);
-    },
-  },
-  elementContainer);
-  newCard.renderItems();
-  closeFormPlace();
-};
+    formWithPlace.close()
+  }
+})
+formWithPlace.setEventListeners()
+// const formPlaceSubmitHandler = (evt) => {
+//   evt.preventDefault();
+//   const name = placeInput.value;
+//   const link = imageInput.value;
+//   const item = [{ name, link }];
+//   const newCard = new Section({
+//     items: item,
+//     renderer: (item) => {
+//       const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
+//       cardList.addItem(card);
+//     },
+//   },
+//   elementContainer);
+//   newCard.renderItems();
+//   closeFormPlace();
+// };
 //попробуй это оптимизировать!
 
 // с именем
 const openFormName = () => {
 
   openPopup(formName);
-  nameInput.value = name.textContent;
-  professionInput.value = profession.textContent;
+  userInfo.getUserInfo()
+
+  // const userInfo = new UserInfo({
+  //   data: (item) => {
+  //     item.name.value = name.textContent;
+  //     item.profession.value = profession.textContent;
+  //   }
+  // }).getUserInfo();
+  // nameInput.value = name.textContent;
+  // professionInput.value = profession.textContent;
   formNameValidator.enableValidation();
   //функция сброса ошибки
   formNameValidator.resetValidation(formName);
@@ -133,8 +121,8 @@ const closeFormName = () => {
 //сохранить форму с именем
 const formWithName = new PopupWithForm({
   popupSelector: formName,
-  handleFormSubmit: (dataList) => {
-
+  handleFormSubmit: (item) => {
+    userInfo.setUserInfo(item);
     formWithName.close()
   }
 })
