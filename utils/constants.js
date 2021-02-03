@@ -48,9 +48,9 @@ const professionInput = document.querySelector("#profession-input");
 const elementContainer = document.querySelector(".elements");
 const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
-// const formNameValidator = new FormValidator(validationSettings, formName);
-// const formPlaceValidator = new FormValidator(validationSettings, formPlace);
-export { initialCards,
+
+export {
+  initialCards,
   editButton,
   closeFormNameButton,
   closeFormPlaceButton,
@@ -68,4 +68,4 @@ export { initialCards,
   elementContainer,
   popupImage,
   formCard,
-  }
+};

@@ -1,9 +1,5 @@
 //создадим класс для карточки
 export default class Card {
-  // _imagePopupPicture = document.querySelector("#popup-image");
-  // _imagePopupDescription = document.querySelector("#description");
-
-  //this._likeButton = this._element.querySelector('.element__like');
   constructor(data, cardSelector, handleCardClick) {
     this._cardSelector = cardSelector;
     this._name = data.name;
@@ -31,9 +27,6 @@ export default class Card {
     });
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick();
-      // this._imagePopupPicture.src = this._link;
-      // this._imagePopupPicture.alt = this._name;
-      // this._imagePopupDescription.textContent = this._name;
     });
   }
   // ставим лайк

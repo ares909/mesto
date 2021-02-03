@@ -1,12 +1,16 @@
-//импортируем классы
+//импортируем классы и переменные
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
-import { FormValidator, validationSettings } from "../components/FormValidator.js";
-import Popup from '../components/Popup.js';
+import {
+  FormValidator,
+  validationSettings,
+} from "../components/FormValidator.js";
+import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import { initialCards,
+import {
+  initialCards,
   editButton,
   addButton,
   popups,
@@ -19,48 +23,43 @@ import { initialCards,
   elementContainer,
   popupImage,
   formCard,
-  }
- from "../utils/constants.js"
+} from "../utils/constants.js";
 
 const formNameValidator = new FormValidator(validationSettings, formName);
 const formPlaceValidator = new FormValidator(validationSettings, formPlace);
 
-export {popups};
 const userInfo = new UserInfo({
   name: name,
   profession: profession,
-})
+});
 
 //открыть попап
 const openPopup = (item) => {
-  const form = new Popup(item).open()
-}
+  const form = new Popup(item).open();
+};
 
-// const popupWithImage = (item) => {
-//   const newPopup = new PopupWithImage(item).open(name, link)
-// }
 //закрыть попап
 const closePopup = (item) => {
   const form = new Popup(item).close();
-  //удаляем обработчик нажатия
-
 };
 //открываем попап картинки
-//
 const popupWithImage = new PopupWithImage(popupImage);
 
 //создаем карточку через класс
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
-    cardList.addItem(card);
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, "#elementTemplate", () =>
+        popupWithImage.open(item.name, item.link)
+      ).generateCard();
+      cardList.addItem(card);
+    },
   },
-},
-elementContainer);
-
+  elementContainer
+);
+//создаем 6 начальных карточек
 cardList.renderItems();
-
 
 //Загрузка новой карточки
 const formWithPlace = new PopupWithForm({
@@ -68,46 +67,18 @@ const formWithPlace = new PopupWithForm({
   handleFormSubmit: (item) => {
     item.name = placeInput.value;
     item.link = imageInput.value;
-    // item = [{ name, link }];
-    const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
+    const card = new Card(item, "#elementTemplate", () =>
+      popupWithImage.open(item.name, item.link)
+    ).generateCard();
     cardList.addItem(card);
+    formWithPlace.close();
+  },
+});
+formWithPlace.setEventListeners();
 
-    formWithPlace.close()
-  }
-})
-formWithPlace.setEventListeners()
-// const formPlaceSubmitHandler = (evt) => {
-//   evt.preventDefault();
-//   const name = placeInput.value;
-//   const link = imageInput.value;
-//   const item = [{ name, link }];
-//   const newCard = new Section({
-//     items: item,
-//     renderer: (item) => {
-//       const card = new Card(item, "#elementTemplate", ()=> popupWithImage.open(item.name, item.link)).generateCard();
-//       cardList.addItem(card);
-//     },
-//   },
-//   elementContainer);
-//   newCard.renderItems();
-//   closeFormPlace();
-// };
-//попробуй это оптимизировать!
-
-// с именем
 const openFormName = () => {
-
   openPopup(formName);
-  userInfo.getUserInfo()
-
-  // const userInfo = new UserInfo({
-  //   data: (item) => {
-  //     item.name.value = name.textContent;
-  //     item.profession.value = profession.textContent;
-  //   }
-  // }).getUserInfo();
-  // nameInput.value = name.textContent;
-  // professionInput.value = profession.textContent;
+  userInfo.getUserInfo();
   formNameValidator.enableValidation();
   //функция сброса ошибки
   formNameValidator.resetValidation(formName);
@@ -123,17 +94,11 @@ const formWithName = new PopupWithForm({
   popupSelector: formName,
   handleFormSubmit: (item) => {
     userInfo.setUserInfo(item);
-    formWithName.close()
-  }
-})
+    formWithName.close();
+  },
+});
 
-formWithName.setEventListeners()
-// const formNameSubmitHandler = (evt) => {
-//   evt.preventDefault();
-//   name.textContent = nameInput.value;
-//   profession.textContent = professionInput.value;
-//   closeFormName();
-// };
+formWithName.setEventListeners();
 
 //открыть форму с местом
 const openFormPlace = () => {
@@ -148,10 +113,6 @@ const openFormPlace = () => {
 const closeFormPlace = () => {
   closePopup(formPlace);
 };
-//закрыть попап с картинкой
-// const closeImage = () => {
-//   closePopup(popupImage);
-// };
 
 //закрываем попапы кликом на оверлей
 popups.forEach((item) => {
@@ -162,8 +123,5 @@ popups.forEach((item) => {
   });
 });
 
-
 editButton.addEventListener("click", openFormName);
 addButton.addEventListener("click", openFormPlace);
-// formName.addEventListener("submit", formNameSubmitHandler);
-// formPlace.addEventListener("submit", formPlaceSubmitHandler);
