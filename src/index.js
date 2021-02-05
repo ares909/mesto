@@ -2,10 +2,7 @@
 import "./pages/index.css";
 import Section from "./components/Section.js";
 import Card from "./components/Card.js";
-import {
-  FormValidator,
-  validationSettings,
-} from "./components/FormValidator.js";
+import { FormValidator } from "./components/FormValidator.js";
 import Popup from "./components/Popup.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
@@ -24,6 +21,9 @@ import {
   elementContainer,
   popupImage,
   formCard,
+  validationSettings,
+  nameInput,
+  professionInput,
 } from "./utils/constants.js";
 
 const formNameValidator = new FormValidator(validationSettings, formName);
@@ -34,17 +34,9 @@ const userInfo = new UserInfo({
   profession: profession,
 });
 
-//открыть попап
-const openPopup = (item) => {
-  const form = new Popup(item).open();
-};
-
-//закрыть попап
-const closePopup = (item) => {
-  const form = new Popup(item).close();
-};
 //открываем попап картинки
 const popupWithImage = new PopupWithImage(popupImage);
+popupWithImage.setEventListeners();
 
 //создаем карточку через класс
 const cardList = new Section(
@@ -66,8 +58,6 @@ cardList.renderItems();
 const formWithPlace = new PopupWithForm({
   popupSelector: formPlace,
   handleFormSubmit: (item) => {
-    item.name = placeInput.value;
-    item.link = imageInput.value;
     const card = new Card(item, "#elementTemplate", () =>
       popupWithImage.open(item.name, item.link)
     ).generateCard();
@@ -78,8 +68,13 @@ const formWithPlace = new PopupWithForm({
 formWithPlace.setEventListeners();
 
 const openFormName = () => {
-  openPopup(formName);
-  userInfo.getUserInfo();
+  formWithName.open();
+  userInfo.getUserInfo({
+    name: name.textContent,
+    profession: profession.textContent,
+  });
+  nameInput.value = name.textContent;
+  professionInput.value = profession.textContent;
   formNameValidator.enableValidation();
   //функция сброса ошибки
   formNameValidator.resetValidation(formName);
@@ -87,7 +82,7 @@ const openFormName = () => {
 
 //закрыть форму с именем
 const closeFormName = () => {
-  closePopup(formName);
+  formWithName.close();
 };
 
 //сохранить форму с именем
@@ -103,16 +98,17 @@ formWithName.setEventListeners();
 
 //открыть форму с местом
 const openFormPlace = () => {
-  openPopup(formPlace);
+  formWithPlace.open();
   formPlaceValidator.enableValidation();
   //функция сброса ошибки
   formPlaceValidator.resetValidation(formPlace);
-  formCard.reset();
+  //
 };
 
 //закрыть форму с местом
 const closeFormPlace = () => {
-  closePopup(formPlace);
+  formWithPlace.close();
+  formCard.reset();
 };
 
 //закрываем попапы кликом на оверлей
@@ -120,6 +116,7 @@ popups.forEach((item) => {
   item.addEventListener("click", (evt) => {
     if (evt.target.classList.contains("popup")) {
       closePopup(evt.target);
+      formCard.reset();
     }
   });
 });

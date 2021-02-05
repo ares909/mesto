@@ -30,6 +30,15 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+const validationSettings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__form-text",
+  submitButtonSelector: ".popup__form-button",
+  inactiveButtonClass: "popup__form-button_disabled",
+  inputErrorClass: "popup__form_type_error",
+  errorClass: "popup__error_visible",
+};
+
 
 const editButton = document.querySelector(".profile__editbutton");
 const closeFormNameButton = document.querySelector("#close_card-name");
@@ -48,6 +57,7 @@ const professionInput = document.querySelector("#profession-input");
 const elementContainer = document.querySelector(".elements");
 const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
+
 
 export {
   initialCards,
@@ -68,4 +78,5 @@ export {
   elementContainer,
   popupImage,
   formCard,
+  validationSettings,
 };
