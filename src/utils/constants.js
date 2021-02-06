@@ -39,7 +39,6 @@ const validationSettings = {
   errorClass: "popup__error_visible",
 };
 
-
 const editButton = document.querySelector(".profile__editbutton");
 const closeFormNameButton = document.querySelector("#close_card-name");
 const closeFormPlaceButton = document.querySelector("#close_card-place");
@@ -57,7 +56,6 @@ const professionInput = document.querySelector("#profession-input");
 const elementContainer = document.querySelector(".elements");
 const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
-
 
 export {
   initialCards,

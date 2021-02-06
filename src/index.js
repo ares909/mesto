@@ -3,7 +3,6 @@ import "./pages/index.css";
 import Section from "./components/Section.js";
 import Card from "./components/Card.js";
 import { FormValidator } from "./components/FormValidator.js";
-import Popup from "./components/Popup.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import UserInfo from "./components/UserInfo.js";
@@ -11,13 +10,10 @@ import {
   initialCards,
   editButton,
   addButton,
-  popups,
   name,
   profession,
   formName,
   formPlace,
-  placeInput,
-  imageInput,
   elementContainer,
   popupImage,
   formCard,
@@ -110,16 +106,6 @@ const closeFormPlace = () => {
   formWithPlace.close();
   formCard.reset();
 };
-
-//закрываем попапы кликом на оверлей
-popups.forEach((item) => {
-  item.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("popup")) {
-      closePopup(evt.target);
-      formCard.reset();
-    }
-  });
-});
 
 editButton.addEventListener("click", openFormName);
 addButton.addEventListener("click", openFormPlace);

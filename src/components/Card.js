@@ -35,8 +35,8 @@ export default class Card {
   }
   //удаляем карточку
   _deleteCard() {
-    this._element.closest(".element").remove();
-    this._element = "";
+    this._element.remove();
+    this._element = null;
   }
   //создать карточку
   generateCard() {
