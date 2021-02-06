@@ -57,7 +57,13 @@ class FormValidator {
     inputList.forEach((input) => {
       this._hideError(form, input);
     });
+    const formList = document.querySelectorAll(this._formSelector);
+    formList.forEach((form) => {
+      const submitButton = form.querySelector(this._submitButtonSelector);
+      this._changeSubmitButton(submitButton, form.checkValidity());
+    });
   }
+
   //вешаем обработчики событий на все формы
   enableValidation = () => {
     const formList = document.querySelectorAll(this._formSelector);

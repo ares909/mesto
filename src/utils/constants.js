@@ -56,6 +56,7 @@ const professionInput = document.querySelector("#profession-input");
 const elementContainer = document.querySelector(".elements");
 const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
+const submitButton = document.querySelector(".popup__form-button");
 
 export {
   initialCards,
@@ -77,4 +78,5 @@ export {
   popupImage,
   formCard,
   validationSettings,
+  submitButton,
 };

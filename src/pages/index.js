@@ -1,11 +1,11 @@
 //импортируем классы и переменные
-import "./pages/index.css";
-import Section from "./components/Section.js";
-import Card from "./components/Card.js";
-import { FormValidator } from "./components/FormValidator.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import UserInfo from "./components/UserInfo.js";
+import "./index.css";
+import Section from "../components/Section.js";
+import Card from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 import {
   initialCards,
   editButton,
@@ -20,10 +20,13 @@ import {
   validationSettings,
   nameInput,
   professionInput,
-} from "./utils/constants.js";
+  submitButton,
+} from "../utils/constants.js";
 
 const formNameValidator = new FormValidator(validationSettings, formName);
 const formPlaceValidator = new FormValidator(validationSettings, formPlace);
+formPlaceValidator.enableValidation();
+formNameValidator.enableValidation();
 
 const userInfo = new UserInfo({
   name: name,
@@ -65,13 +68,9 @@ formWithPlace.setEventListeners();
 
 const openFormName = () => {
   formWithName.open();
-  userInfo.getUserInfo({
-    name: name.textContent,
-    profession: profession.textContent,
-  });
-  nameInput.value = name.textContent;
-  professionInput.value = profession.textContent;
-  formNameValidator.enableValidation();
+  const profileInfo = userInfo.getUserInfo();
+  nameInput.value = profileInfo.name;
+  professionInput.value = profileInfo.profession;
   //функция сброса ошибки
   formNameValidator.resetValidation(formName);
 };
@@ -95,9 +94,10 @@ formWithName.setEventListeners();
 //открыть форму с местом
 const openFormPlace = () => {
   formWithPlace.open();
-  formPlaceValidator.enableValidation();
+  // formPlaceValidator.changeSubmitButton(submitButton, formPlace.checkValidity());
   //функция сброса ошибки
   formPlaceValidator.resetValidation(formPlace);
+
   //
 };
 
