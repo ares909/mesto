@@ -57,6 +57,8 @@ const elementContainer = document.querySelector(".elements");
 const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
 const submitButton = document.querySelector(".popup__form-button");
+const confirmationPopup = document.querySelector('#confirm');
+const deleteButton = document.querySelectorAll(".element__trash");
 
 export {
   initialCards,
@@ -79,4 +81,6 @@ export {
   formCard,
   validationSettings,
   submitButton,
+  confirmationPopup,
+  deleteButton,
 };

@@ -1,10 +1,11 @@
 //создадим класс для карточки
 export default class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(data, cardSelector, handleCardClick, openConfirmation) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
     this._handleCardClick = handleCardClick;
+    this._openConfirmation = openConfirmation;
   }
   //добавить шаблон
   _getTemplate() {
@@ -23,7 +24,8 @@ export default class Card {
       this._likeCard();
     });
     this._deleteButton.addEventListener("click", () => {
-      this._deleteCard();
+      // this._deleteCard();
+      this._openConfirmation();
     });
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick();
@@ -34,7 +36,7 @@ export default class Card {
     this._likeButton.classList.toggle("element__like_active");
   }
   //удаляем карточку
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
     this._element = null;
   }

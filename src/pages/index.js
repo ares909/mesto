@@ -6,6 +6,7 @@ import { FormValidator } from "../components/FormValidator.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import {
   initialCards,
   editButton,
@@ -21,6 +22,8 @@ import {
   nameInput,
   professionInput,
   submitButton,
+  confirmationPopup,
+  deleteButton,
 } from "../utils/constants.js";
 
 const formNameValidator = new FormValidator(validationSettings, formName);
@@ -43,7 +46,8 @@ const cardList = new Section(
     items: initialCards,
     renderer: (item) => {
       const card = new Card(item, "#elementTemplate", () =>
-        popupWithImage.open(item.name, item.link)
+        popupWithImage.open(item.name, item.link),
+        () => confirmation.open(card)
       ).generateCard();
       cardList.addItem(card);
     },
@@ -58,7 +62,7 @@ const formWithPlace = new PopupWithForm({
   popupSelector: formPlace,
   handleFormSubmit: (item) => {
     const card = new Card(item, "#elementTemplate", () =>
-      popupWithImage.open(item.name, item.link)
+      popupWithImage.open(item.name, item.link), () => confirmation.open(card)
     ).generateCard();
     cardList.addItem(card);
     formWithPlace.close();
@@ -91,6 +95,20 @@ const formWithName = new PopupWithForm({
 
 formWithName.setEventListeners();
 
+const confirmation = new PopupWithConfirmation({
+  popupSelector: confirmationPopup,
+  handleFormSubmit: () => {
+    // cardList.remove(card);
+    confirmation.close()
+  }
+});
+
+confirmation.setEventListeners();
+
+// const openConfirmation = () => {
+//   confirmation.open();
+// }
+
 //открыть форму с местом
 const openFormPlace = () => {
   formWithPlace.open();
@@ -109,3 +127,7 @@ const closeFormPlace = () => {
 
 editButton.addEventListener("click", openFormName);
 addButton.addEventListener("click", openFormPlace);
+// deleteButton.forEach((button) => {
+//   button.addEventListener("click", openConfirmation);
+// });
+
