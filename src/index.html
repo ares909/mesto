@@ -119,8 +119,34 @@
         <button
           class="popup__cross popup__cross_right hover"
           type="button"
-          id="close_card-place"
+          id="close_confirmation"
         ></button>
+      </div>
+    </section>
+    <section class="popup" id="form-avatar">
+      <div class="popup__container">
+        <form class="popup__form popup__card" name="formAvatarImage" novalidate>
+          <fieldset class="popup__form-container popup__card-container">
+            <h2 class="popup__form-heading popup__card-heading">Обновить аватар</h2>
+            <input
+              name="link"
+              id="image-input"
+              type="url"
+              class="popup__form-text popup__card-text"
+              required
+              placeholder="Ссылка на картинку"
+            />
+            <span class="popup__error" id="image-input-error"></span>
+            <button class="popup__form-button popup__card-button" type="submit">
+              Сохранить
+            </button>
+          </fieldset>
+          <button
+            class="popup__cross popup__cross_right hover"
+            type="button"
+            id="close_card-avatar"
+          ></button>
+        </form>
       </div>
     </section>
 
@@ -129,7 +155,7 @@
         <div class="profile__container">
           <div class="profile__avatar-container">
           <img
-            class="profile__avatar hover"
+            class="profile__avatar"
             src='<%=require("./blocks/profile/images/avatar.jpg")%>'
             alt="аватар"
           />

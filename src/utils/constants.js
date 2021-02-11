@@ -59,6 +59,10 @@ const formCard = document.forms.formCard;
 const submitButton = document.querySelector(".popup__form-button");
 const confirmationPopup = document.querySelector('#confirm');
 const deleteButton = document.querySelectorAll(".element__trash");
+const avatarContainer = document.querySelector(".profile__avatar-container");
+const avatarButton = document.querySelector(".profile__avatar-button");
+const formAvatar = document.querySelector("#form-avatar");
+const avatarImage = document.querySelector(".profile__avatar");
 
 export {
   initialCards,
@@ -83,4 +87,8 @@ export {
   submitButton,
   confirmationPopup,
   deleteButton,
+  avatarContainer,
+  avatarButton,
+  formAvatar,
+  avatarImage,
 };

@@ -24,6 +24,10 @@ import {
   submitButton,
   confirmationPopup,
   deleteButton,
+  avatarContainer,
+  avatarButton,
+  formAvatar,
+  avatarImage,
 } from "../utils/constants.js";
 
 const formNameValidator = new FormValidator(validationSettings, formName);
@@ -69,6 +73,20 @@ const formWithPlace = new PopupWithForm({
   },
 });
 formWithPlace.setEventListeners();
+
+const formWithAvatar = new PopupWithForm({
+  popupSelector: formAvatar,
+  handleFormSubmit: (item) => {
+    avatarImage.src = item.link;
+    formWithAvatar.close();
+  }
+})
+formWithAvatar.setEventListeners();
+
+const openFormAvatar = () => {
+  formWithAvatar.open();
+  formNameValidator.resetValidation(formAvatar);
+}
 
 const openFormName = () => {
   formWithName.open();
@@ -125,8 +143,20 @@ const closeFormPlace = () => {
   formCard.reset();
 };
 
+const showButton = () => {
+  avatarButton.classList.add('profile__avatar-button_focused');
+}
+const hideButton = () => {
+  avatarButton.classList.remove('profile__avatar-button_focused');
+}
+
+
 editButton.addEventListener("click", openFormName);
 addButton.addEventListener("click", openFormPlace);
+avatarContainer.addEventListener("mouseover", showButton);
+avatarContainer.addEventListener("mouseleave", hideButton);
+avatarButton.addEventListener("click", openFormAvatar);
+
 // deleteButton.forEach((button) => {
 //   button.addEventListener("click", openConfirmation);
 // });
