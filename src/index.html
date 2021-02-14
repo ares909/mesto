@@ -110,7 +110,7 @@
       <div class="popup__container">
         <form class="popup__form popup__card" name="confirmationPopup" novalidate>
         <fieldset class="popup__form-container popup__card-container">
-          <h2 class="popup__form-heading popup__card-heading">Вы уверены?</h2>
+          <h2 class="popup__form-heading popup__avatar-heading">Вы уверены?</h2>
           <button class="popup__form-button popup__card-button" type="submit">
             Да
           </button>
@@ -189,7 +189,10 @@
         />
         <div class="element__place">
           <h2 class="element__text">Карачаевск</h2>
+          <div class="element__like-container">
           <button class="element__like hover" type="button"></button>
+          <p class="element__like-counter">0</p>
+        </div>
         </div>
         <img
           src='<%=require("./blocks/element/__trash/images/Trash.svg")%>'

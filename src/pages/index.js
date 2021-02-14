@@ -7,6 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import Api from "../components/Api.js"
 import {
   initialCards,
   editButton,
@@ -35,22 +36,23 @@ const formPlaceValidator = new FormValidator(validationSettings, formPlace);
 formPlaceValidator.enableValidation();
 formNameValidator.enableValidation();
 
-const userInfo = new UserInfo({
-  name: name,
-  profession: profession,
+
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-20/",
+  headers: {
+    authorization: "89fc14f5-c7ca-4e60-97f4-2de7395294ca",
+    "Content-Type": "application/json",
+  },
 });
 
-//открываем попап картинки
-const popupWithImage = new PopupWithImage(popupImage);
-popupWithImage.setEventListeners();
-
-//создаем карточку через класс
 const cardList = new Section(
   {
-    items: initialCards,
-    renderer: (item) => {
-      const card = new Card(item, "#elementTemplate", () =>
-        popupWithImage.open(item.name, item.link),
+     renderer: (item) => {
+      const card = new Card(
+        item,
+        "#elementTemplate",
+        () => popupWithImage.open(item.name, item.link),
         () => confirmation.open(card)
       ).generateCard();
       cardList.addItem(card);
@@ -58,21 +60,69 @@ const cardList = new Section(
   },
   elementContainer
 );
-//создаем 6 начальных карточек
-cardList.renderItems();
+
+// cardList.renderItems(initialCards);
+api
+  .getInitialCards()
+  .then((res) => {
+    cardList.renderItems(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+
+
+//открываем попап картинки
+const popupWithImage = new PopupWithImage(popupImage);
+popupWithImage.setEventListeners();
+
+
 
 //Загрузка новой карточки
+
 const formWithPlace = new PopupWithForm({
   popupSelector: formPlace,
   handleFormSubmit: (item) => {
-    const card = new Card(item, "#elementTemplate", () =>
-      popupWithImage.open(item.name, item.link), () => confirmation.open(card)
+    api
+      .addNewCard(item)
+      .then((res) =>{
+        const card = new Card(res, "#elementTemplate", () =>
+          popupWithImage.open(res.name, res.link), () => confirmation.open(card)
     ).generateCard();
     cardList.addItem(card);
     formWithPlace.close();
+      })
   },
 });
 formWithPlace.setEventListeners();
+
+
+const userInfo = new UserInfo({
+  name: name,
+  profession: profession,
+});
+
+//сохранить форму с именем
+const formWithName = new PopupWithForm({
+  popupSelector: formName,
+  handleFormSubmit: (item) => {
+    api
+      .changeProfileInfo({
+        name: item.name,
+        about: item.profession,
+      })
+      .catch((err) =>{
+      console.log(err);
+      })
+    userInfo.setUserInfo(item);
+    formWithName.close();
+  },
+});
+formWithName.setEventListeners();
+
+
+
 
 const formWithAvatar = new PopupWithForm({
   popupSelector: formAvatar,
@@ -102,16 +152,7 @@ const closeFormName = () => {
   formWithName.close();
 };
 
-//сохранить форму с именем
-const formWithName = new PopupWithForm({
-  popupSelector: formName,
-  handleFormSubmit: (item) => {
-    userInfo.setUserInfo(item);
-    formWithName.close();
-  },
-});
 
-formWithName.setEventListeners();
 
 const confirmation = new PopupWithConfirmation({
   popupSelector: confirmationPopup,

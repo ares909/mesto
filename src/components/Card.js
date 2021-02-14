@@ -35,11 +35,6 @@ export default class Card {
   _likeCard() {
     this._likeButton.classList.toggle("element__like_active");
   }
-  //удаляем карточку
-  deleteCard() {
-    this._element.remove();
-    this._element = null;
-  }
   //создать карточку
   generateCard() {
     this._element = this._getTemplate();
