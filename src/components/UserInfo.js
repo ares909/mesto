@@ -9,6 +9,10 @@ export default class UserInfo {
       profession: this._profession.textContent,
     };
   }
+  setServerInfo({ name, about }) {
+    this._name.textContent = name;
+    this._profession.textContent = about;
+  }
   setUserInfo({ name, profession }) {
     this._name.textContent = name;
     this._profession.textContent = profession;

@@ -71,7 +71,14 @@ api
     console.log(err);
   })
 
-
+api
+  .getUserData()
+  .then((res) => {
+    userInfo.setServerInfo(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 //открываем попап картинки
 const popupWithImage = new PopupWithImage(popupImage);
@@ -102,6 +109,8 @@ const userInfo = new UserInfo({
   name: name,
   profession: profession,
 });
+
+
 
 //сохранить форму с именем
 const formWithName = new PopupWithForm({
