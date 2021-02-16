@@ -53,7 +53,7 @@ const cardList = new Section(
         item,
         "#elementTemplate",
         () => popupWithImage.open(item.name, item.link),
-        () => confirmation.open(card)
+        () => confirmation.open(item, card)
       ).generateCard();
       cardList.addItem(card);
     },
@@ -95,7 +95,7 @@ const formWithPlace = new PopupWithForm({
       .addNewCard(item)
       .then((res) =>{
         const card = new Card(res, "#elementTemplate", () =>
-          popupWithImage.open(res.name, res.link), () => confirmation.open(card)
+          popupWithImage.open(res.name, res.link), () => confirmation.open(item, card)
     ).generateCard();
     cardList.addItem(card);
     formWithPlace.close();
@@ -169,7 +169,7 @@ const confirmation = new PopupWithConfirmation({
     // cardList.remove(card);
     confirmation.close()
   }
-});
+}, api);
 
 confirmation.setEventListeners();
 
