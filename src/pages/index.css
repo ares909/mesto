@@ -52,5 +52,6 @@
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__form/_type/popup__form_type_error.css);
 @import url(../blocks/popup/__form-button/_disabled/popup__form-button_disabled.css);
+@import url(../blocks/popup/__form-button/_hidden/popup__form-button_hidden.css);
 
 

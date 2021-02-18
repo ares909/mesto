@@ -5,6 +5,8 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupSelector.querySelector(".popup__form");
     this._inputList = this._form.querySelectorAll(".popup__form-text");
+    this._submitButton = this._form.querySelector(".popup__form-button");
+    this._loader = this._form.querySelector("#loader");
     // this._api = api;
   }
   _getInputValues() {
@@ -14,36 +16,28 @@ export default class PopupWithForm extends Popup {
     });
     return dataList;
   }
-// //сохранить на сервер карточку
-  // saveCardOnServer() {
-  //   this._api
-  //     .addNewCard(this._getInputValues())
-  //     .then((data) => {
-  //       return data
-  //     }
-  //     )
-
-  //     .catch(err => console.log(err))
-  // }
-  // _changeName() {
-  //   this._api
-  //     .changeProfileInfo(this._getInputValues())
-  //     .then((data) => this._handleFormSubmit(data))
-  //     .catch(err => console.log(err))
-  // }
+  _renderLoading(isLoading) {
+    if (isLoading) {
+      this._submitButton.classList.add("popup__form-button_hidden");
+      this._loader.classList.remove("popup__form-button_hidden");
+    } else if (!isLoading) {
+      this._submitButton.classList.remove("popup__form-button_hidden");
+      this._loader.classList.add("popup__form-button_hidden");
+    }
+  }
 
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
-    // this.saveCardOnServer();
-    // this._changeName();
       evt.preventDefault();
-    this._handleFormSubmit(this._getInputValues());
+      this._handleFormSubmit(this._getInputValues());
+      this._renderLoading(true);
+      // this.close()
     });
   }
   close() {
+    this._renderLoading(false);
     this._form.reset();
     super.close();
-
   }
 }
