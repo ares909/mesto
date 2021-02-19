@@ -7,75 +7,60 @@ class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
+    this._inputList = this._form.querySelectorAll(this._inputSelector);
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
   }
-  //показать ошибку валидации
-  _showError = (form, input) => {
-    const error = form.querySelector(`#${input.id}-error`);
-    input.classList.add(this._inputErrorClass);
-    error.textContent = input.validationMessage;
+  _showError = () => {
+    const error = this._form.querySelector(`#${this._input.id}-error`);
+    error.textContent = this._input.validationMessage;
+    this._input.classList.add(this._inputErrorClass);
     error.classList.add(this._errorClass);
   };
-  //скрываем ошибку валидации
-  _hideError = (form, input) => {
-    const error = form.querySelector(`#${input.id}-error`);
-    input.classList.remove(this._inputErrorClass);
+  _hideError = () => {
+    const error = this._form.querySelector(`#${this._input.id}-error`);
     error.textContent = "";
+    this._input.classList.remove(this._inputErrorClass);
     error.classList.remove(this._errorClass);
-  };
-  //условие валидации
-  _checkInputValidity = (form, input) => {
-    if (!input.validity.valid) {
-      this._showError(form, input);
+  }; //условие валидации
+  _checkInputValidity = (input) => {
+    this._input = input;
+    if (this._input.validity.valid) {
+      this._hideError();
     } else {
-      this._hideError(form, input);
+      this._showError();
     }
-  };
-  //активируем/деактивируем кнопку
-  _changeSubmitButton = (button, validation) => {
+  }; //активируем/деактивируем кнопку
+  _changeSubmitButton = (validation) => {
     if (!validation) {
-      button.classList.add(this._inactiveButtonClass);
-      button.disabled = true;
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = true;
     } else {
-      button.classList.remove(this._inactiveButtonClass);
-      button.disabled = false;
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.disabled = false;
     }
-  };
+  }; //вешаем обработчики событий на все инпуты
 
-  //вешаем обработчики событий на все инпуты
-  _setEventListeners = (form) => {
-    const inputList = form.querySelectorAll(this._inputSelector);
-    const submitButton = form.querySelector(this._submitButtonSelector);
-    inputList.forEach((input) => {
+  _setEventListeners = () => {
+    this._changeSubmitButton(this._form.checkValidity());
+    this._inputList.forEach((input) => {
       input.addEventListener("input", () => {
-        this._checkInputValidity(form, input);
-        this._changeSubmitButton(submitButton, form.checkValidity());
+        this._checkInputValidity(input);
+        this._changeSubmitButton(this._form.checkValidity());
       });
     });
   };
-  resetValidation(form) {
-    const inputList = form.querySelectorAll(this._inputSelector);
-    inputList.forEach((input) => {
-      this._hideError(form, input);
+  resetValidation() {
+    this._inputList.forEach((input) => {
+      this._checkInputValidity(input);
+      this._hideError(input);
+      this._changeSubmitButton(this._form.checkValidity());
     });
-    const formList = document.querySelectorAll(this._formSelector);
-    formList.forEach((form) => {
-      const submitButton = form.querySelector(this._submitButtonSelector);
-      this._changeSubmitButton(submitButton, form.checkValidity());
-    });
-  }
-
-  //вешаем обработчики событий на все формы
+  } //вешаем обработчики событий на все формы
   enableValidation = () => {
-    const formList = document.querySelectorAll(this._formSelector);
-    formList.forEach((form) => {
-      this._setEventListeners(form);
-      form.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      });
-      const submitButton = form.querySelector(this._submitButtonSelector);
-      this._changeSubmitButton(submitButton, form.checkValidity());
+    this._setEventListeners();
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
     });
   };
 }
-
 export { FormValidator };

@@ -56,8 +56,10 @@ const professionInput = document.querySelector("#profession-input");
 const elementContainer = document.querySelector(".elements");
 const popupImage = document.querySelector("#popup_image-container");
 const formCard = document.forms.formCard;
+const formProfile = document.forms.formProfile;
+const formAvatarImage = document.forms.formAvatarImage;
 const submitButton = document.querySelector(".popup__form-button");
-const confirmationPopup = document.querySelector('#confirm');
+const confirmationPopup = document.querySelector("#confirm");
 const deleteButton = document.querySelectorAll(".element__trash");
 const avatarContainer = document.querySelector(".profile__avatar-container");
 const avatarButton = document.querySelector(".profile__avatar-button");
@@ -83,12 +85,14 @@ export {
   elementContainer,
   popupImage,
   formCard,
+  formProfile,
+  formAvatar,
   validationSettings,
   submitButton,
   confirmationPopup,
   deleteButton,
   avatarContainer,
   avatarButton,
-  formAvatar,
+  formAvatarImage,
   avatarImage,
 };

@@ -29,12 +29,19 @@ import {
   avatarButton,
   formAvatar,
   avatarImage,
+  formProfile,
+  formAvatarImage,
 } from "../utils/constants.js";
 
-const formNameValidator = new FormValidator(validationSettings, formName);
-const formPlaceValidator = new FormValidator(validationSettings, formPlace);
+const formNameValidator = new FormValidator(validationSettings, formProfile);
+const formPlaceValidator = new FormValidator(validationSettings, formCard);
+const formAvatarValidator = new FormValidator(
+  validationSettings,
+  formAvatarImage
+);
 formPlaceValidator.enableValidation();
 formNameValidator.enableValidation();
+formAvatarValidator.enableValidation();
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-20/",
@@ -73,10 +80,11 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 
     const openFormName = () => {
       formWithName.open();
+      formNameValidator.enableValidation();
       const profileInfo = userData.getUserInfo();
       nameInput.value = profileInfo.name;
       professionInput.value = profileInfo.profession;
-      formNameValidator.resetValidation(formName);
+      formNameValidator.resetValidation();
     };
 
     const popupWithImage = new PopupWithImage(popupImage);
@@ -132,7 +140,7 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 
     const openFormAvatar = () => {
       formWithAvatar.open();
-      formNameValidator.resetValidation(formAvatar);
+      formAvatarValidator.resetValidation();
     };
 
     const confirmation = new PopupWithConfirmation(
@@ -149,7 +157,7 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 
     const openFormPlace = () => {
       formWithPlace.open();
-      formPlaceValidator.resetValidation(formPlace);
+      formPlaceValidator.resetValidation();
     };
 
     const showButton = () => {

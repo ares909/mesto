@@ -1,4 +1,3 @@
-import Api from "./Api.js";
 import Popup from "./Popup.js";
 export default class PopupWithConfirmation extends Popup {
   constructor({ popupSelector, handleFormSubmit }, api) {
@@ -6,7 +5,7 @@ export default class PopupWithConfirmation extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupSelector.querySelector(".popup__form");
     this._submitButton = this._form.querySelector(".popup__form-button");
-    this._loader = this._form.querySelector(".popup_form-button_loader");
+    this._loader = this._form.querySelector(".popup__form-button_loader");
     this._api = api;
   }
 
