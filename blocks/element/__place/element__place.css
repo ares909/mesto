@@ -1,6 +1,0 @@
-.element__place {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 25px 15px 25px;
-}
