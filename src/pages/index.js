@@ -70,9 +70,10 @@ Promise.all([api.getUserData(), api.getInitialCards()])
       elementContainer
     );
 
-    let userData = new UserInfo({
+    const userData = new UserInfo({
       name: name,
       profession: profession,
+      avatar: avatarImage,
     });
 
     cardList.renderItems(cards);
@@ -80,7 +81,6 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 
     const openFormName = () => {
       formWithName.open();
-      formNameValidator.enableValidation();
       const profileInfo = userData.getUserInfo();
       nameInput.value = profileInfo.name;
       professionInput.value = profileInfo.profession;
@@ -117,10 +117,13 @@ Promise.all([api.getUserData(), api.getInitialCards()])
             name: item.name,
             about: item.profession,
           })
+          .then(() => {
+            userData.setUserInfo(item);
+          })
           .catch((err) => {
             console.log(err);
           });
-        userData.setUserInfo(item);
+
         formWithName.close();
       },
     });
@@ -129,10 +132,15 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     const formWithAvatar = new PopupWithForm({
       popupSelector: formAvatar,
       handleFormSubmit: (item) => {
-        api.changeAvatar(item).catch((err) => {
-          console.log(err);
-        });
-        avatarImage.src = item.avatar;
+        api
+          .changeAvatar(item)
+          .then(() => {
+            userData._avatar.src = item.avatar;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        // avatarImage.src = item.avatar;
         formWithAvatar.close();
       },
     });
